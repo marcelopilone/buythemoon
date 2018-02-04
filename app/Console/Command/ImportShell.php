@@ -10,6 +10,8 @@ class ImportShell extends AppShell {
 		$json = file_get_contents($api);
 		$cur  = json_decode($json);
 
+		
+
 
 		foreach( $cur as $c ){
 			// paso el objeto a un array

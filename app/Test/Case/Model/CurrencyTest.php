@@ -36,4 +36,10 @@ class CurrencyTest extends CakeTestCase {
 		parent::tearDown();
 	}
 
+	public function testPrueba(){
+
+		$this->assertTrue(false);
+
+	}
+
 }
