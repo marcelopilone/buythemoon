@@ -103,6 +103,12 @@ class AppSchema extends CakeSchema {
 		'porcentaje' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 64, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'cantidad_inicial' =>  array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,12','unsigned' => false),
 		'cantidad_final' =>  array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,12','unsigned' => false),
+		'updated' 	 	=> array('type' => 'datetime', 'null' => true, 'default' => null),
+        'created' 	 	=> array('type' => 'datetime', 'null' => true, 'default' => null),
+        'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+		),
+        		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
 
 	);
 

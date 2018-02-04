@@ -1,6 +1,6 @@
 <div class="movimientos index">
 	<h2><?php echo __('Movimientos'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
+	<table class="table table-stripped">
 	<thead>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
@@ -11,6 +11,8 @@
 			<th><?php echo $this->Paginator->sort('porcentaje'); ?></th>
 			<th><?php echo $this->Paginator->sort('cantidad_inicial'); ?></th>
 			<th><?php echo $this->Paginator->sort('cantidad_final'); ?></th>
+			<th><?php echo $this->Paginator->sort('created'); ?></th>
+			<th><?php echo $this->Paginator->sort('updated'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	</thead>
@@ -25,6 +27,8 @@
 		<td><?php echo h($movimiento['Movimiento']['porcentaje']); ?>&nbsp;</td>
 		<td><?php echo h($movimiento['Movimiento']['cantidad_inicial']); ?>&nbsp;</td>
 		<td><?php echo h($movimiento['Movimiento']['cantidad_final']); ?>&nbsp;</td>
+		<td><?php echo h($movimiento['Movimiento']['created']); ?>&nbsp;</td>
+		<td><?php echo h($movimiento['Movimiento']['updated']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $movimiento['Movimiento']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $movimiento['Movimiento']['id'])); ?>
