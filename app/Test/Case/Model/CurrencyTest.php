@@ -42,4 +42,10 @@ class CurrencyTest extends CakeTestCase {
 
 	}
 
+	public function testPruebaDos(){
+
+		$this->assertTrue(true);
+
+	}
+
 }
