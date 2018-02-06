@@ -129,3 +129,5 @@ Cache::config('default', array('engine' => 'File'));
 
 	define( 'API_COIN_MARKET_CAP_PERSONAL','https://api.coinmarketcap.com/v1/ticker/' );
 	define( 'API_COIN_MARKET_CAP_PERSONAL_FULL','https://api.coinmarketcap.com/v1/ticker/?limit=2000' );
+	define( 'CIEN_PORCIENTO',100 );
+	define( 'PARA_COMPRAR_O_VENDER_RAPIDO',0.1 );

@@ -32,13 +32,13 @@ class MovimientoFixture extends CakeTestFixture {
 	public $records = array(
 		array(
 			'id' => 1,
-			'precio_compra' => '',
-			'precio_venta' => '',
+			'precio_compra' => 50.12,
+			'precio_venta' => 80,
 			'moneda' => 'Lorem ipsum dolor sit amet',
 			'moneda_de_intercambio' => 'Lorem ipsum dolor sit amet',
 			'porcentaje' => 'Lorem ipsum dolor sit amet',
-			'cantidad_inicial' => '',
-			'cantidad_final' => ''
+			'cantidad_inicial' => 100.00,
+			'cantidad_final' => 120.00
 		),
 	);
 
