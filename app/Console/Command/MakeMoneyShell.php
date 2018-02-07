@@ -4,13 +4,16 @@ App::uses('AppShell', 'Console/Command');
 
 class MakeMoneyShell extends AppShell {
 
+	public $uses = array(
+		'Movimiento',
+	);
+
+
     public function main() {
 
     	$this->out('<info>Empezando las operaciones</info>');
 
-        $Movimiento   = ClassRegistry::init('Movimiento');
-
-        $cantMovimientos = $Movimiento->find('count');
+        $cantMovimientos = $this->Movimiento->find('count');
 
         $cantInicial = 100;
 
@@ -23,42 +26,36 @@ class MakeMoneyShell extends AppShell {
         if( empty( $cantMovimientos ) ){
 
         	$this->out('<success>.............................. . . .</success>');
-        	$this->out('<success>.............................. . . .</success>');
-        	$this->out('<success>.............................. . . .</success>');
         	$this->out('<success>Iniciando el proceso de compra . . .</success>');
         	$this->out('<success>.............................. . . .</success>');
-        	$this->out('<success>.............................. . . .</success>');
-        	$this->out('<success>.............................. . . .</success>');
 
-
-			$guardarMovimiento = array(
-				'Movimiento' => array(
-					'moneda_de_intercambio' => $c['result'][0]->MarketName,
-					'precio_compra'         => $c['result'][0]->Last,
-					'cantidad_inicial'      => $cantInicial,
-				)
-			);
-
-			if( ! $Movimiento->save( $guardarMovimiento ) ){
-				$this->out('<error>No se pudo inicializar las operaciones</error>');
-			}
+			$this->comprar( $c,$cantInicial );
 
         }else{
         	$this->out('<info>.............................. . . .</info>');
-        	$this->out('<info>.............................. . . .</info>');
-        	$this->out('<info>.............................. . . .</info>');
         	$this->out('<info>Ya se hizo una compra, voy a analizar si se gano plata o no ..</info>');
         	$this->out('<info>.............................. . . .</info>');
-        	$this->out('<info>.............................. . . .</info>');
-        	$this->out('<info>.............................. . . .</info>');
 
-        	$movimientoParaAnalizar = $Movimiento->find('first',array(
+        	$this->MovimientoParaAnalizar = $this->Movimiento->find('first',array(
         		'recursive' => -1,
         		'limit' => 1,
-        		'order' => array(
-        			'Movimiento.id DESC'
-        		)
+        		'conditions' => array(
+        			'Movimiento.compra_o_venta' => false
+        		),
         	));
+        	$precioCompra = $this->MovimientoParaAnalizar['Movimiento']['precio_compra'];
+        	$precioBittrex = $this->MovimientoParaAnalizar['Movimiento']['precio_compra'];
+
+        	$seGano = calcularPorcentaje( $precioCompra,$c['result'][0]->Last );
+
+        	if( !empty( $seGano ) ){
+        		$this->vender( $c,$seGano );
+
+        		$this->out('<success>****************Se vendio************************</success>');
+
+        	}else{
+        		$this->out('<info>Todavia no hubo ganancia</info>');
+        	}
 
 
         }
@@ -66,23 +63,38 @@ class MakeMoneyShell extends AppShell {
 
     }
 
-    public function calcularPorcentaje( $precioCompra,$precioBitrex ){
+    
+    public function vender( $c,$seGano ){
+    	
+		$cantFinal = $c['result'][0]->Last * $this->MovimientoParaAnalizar['Movimiento']['cant_monedas'];
+		$guardarMovimientoVenta = array(
+			'Movimiento' => array(
+				'id' => $this->MovimientoParaAnalizar['Movimiento']['id'],
+				'precio_venta' => $c['result'][0]->Last,
+				'porcentaje' => $seGano,
+				'cantidad_final' => $cantFinal,
+				'compra_o_venta' => true,
+			),
+		);
 
-    	$seGano = false;
-
-    	$porcentaje = $precioBitrex * CIEN_PORCIENTO / $precioCompra;
-
-		$porcentaje = $porcentaje - CIEN_PORCIENTO;
-
-		// Por ahora para probar es un 2% fijo
-		if( $porcentaje > 2 ){
-			$seGano = $porcentaje;			
-		}
-
-		return $seGano;
+		return $this->Movimiento->save( $guardarMovimientoVenta );
 
     }
 
+    public function comprar( $c,$cantInicial ){
+
+    	$guardarMovimiento = array(
+			'Movimiento' => array(
+				'moneda_de_intercambio' => $c['result'][0]->MarketName,
+				'precio_compra'         => $c['result'][0]->Last,
+				'cantidad_inicial'      => $cantInicial,
+				'cant_monedas'          => $cantInicial / $c['result'][0]->Last,
+			)
+		);
+
+    	return $this->Movimiento->save( $guardarMovimiento );
+
+    }
 
 
 }

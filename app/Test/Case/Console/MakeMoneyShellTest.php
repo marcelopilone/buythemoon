@@ -40,10 +40,8 @@ class MakeMoneyShellTest extends CakeTestCase {
 
 	public function testPruebaDos(){
 
-		debug( $this->MakeMoneyShell );
+		
 
-
-		debug($seGanoPerdio);
 
 	}
 

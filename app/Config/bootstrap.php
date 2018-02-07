@@ -131,3 +131,21 @@ Cache::config('default', array('engine' => 'File'));
 	define( 'API_COIN_MARKET_CAP_PERSONAL_FULL','https://api.coinmarketcap.com/v1/ticker/?limit=2000' );
 	define( 'CIEN_PORCIENTO',100 );
 	define( 'PARA_COMPRAR_O_VENDER_RAPIDO',0.1 );
+	
+
+	function calcularPorcentaje( $precioCompra,$precioBitrex ){
+
+    	$seGano = false;
+
+    	$porcentaje = $precioBitrex * CIEN_PORCIENTO / $precioCompra;
+
+		$porcentaje = $porcentaje - CIEN_PORCIENTO;
+
+		// Por ahora para probar es un 2% fijo
+		if( $porcentaje > 2 ){
+			$seGano = $porcentaje;			
+		}
+
+		return $seGano;
+
+    }
