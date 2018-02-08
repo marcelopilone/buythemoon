@@ -28,7 +28,7 @@ class MakeMoneyShellTest extends CakeTestCase {
 		parent::setUp();
         $out = $this->getMock('ConsoleOutput', array(), array(), '', false);
         $in = $this->getMock('ConsoleInput', array(), array(), '', false);
-		$this->MakeMoneyShell = ClassRegistry::init('Console/Command');
+		$this->MakeMoneyShell = new MakeMoneyShell;
 	}
 
 /**
@@ -38,9 +38,22 @@ class MakeMoneyShellTest extends CakeTestCase {
  */
 
 
-	public function testPruebaDos(){
+	public function testAnalizarComprarSiNo(){
 
-		
+		$operacionParaGuardar = 'https://bittrex.com/api/v1.1/public/getmarketsummary?market=usdt-neo';
+
+        $json = file_get_contents($operacionParaGuardar);
+		$cur  = json_decode($json);
+		$c    = get_object_vars($cur);
+		$c['result'][0]->Last = 109.80878345;
+		$resultado = $this->MakeMoneyShell->analizarComprarSiNo( $c );
+
+		$this->assertFalse( $resultado );
+
+		$c['result'][0]->Last = 20;
+		$resultado = $this->MakeMoneyShell->analizarComprarSiNo( $c );
+
+		$this->assertNotEmpty( $resultado );
 
 
 	}

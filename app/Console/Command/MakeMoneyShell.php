@@ -64,6 +64,7 @@ class MakeMoneyShell extends AppShell {
             		$this->out('<success>****************Se vendio************************</success>');
 
             	}else{
+                    $this->out('<info>Se compro por: '.$precioCompra.' y el precio actual es: '.$precioBittrex.'</info>');
             		$this->out('<info>Todavia no hubo ganancia</info>');
             	}
 
@@ -114,7 +115,6 @@ class MakeMoneyShell extends AppShell {
                 'Movimiento.id DESC'
             )
         ));
-
         $seCompraSiNo = calcularPorcentaje( $ultimoMovimiento['Movimiento']['precio_venta'],$precioBittrex = $c['result'][0]->Last,$menorMayor = true );
 
         $finalizacionDeAnalisis = false;
