@@ -132,8 +132,10 @@ Cache::config('default', array('engine' => 'File'));
 	define( 'CIEN_PORCIENTO',100 );
 	define( 'PARA_COMPRAR_O_VENDER_RAPIDO',0.1 );
 	
-
-	function calcularPorcentaje( $precioCompra,$precioBitrex ){
+	/*
+	* $precioCompra pued3e ser el ultimo valor tambien
+	*/
+	function calcularPorcentaje( $precioCompra,$precioBitrex,$menorMayor = false ){
 
     	$seGano = false;
 
@@ -142,8 +144,14 @@ Cache::config('default', array('engine' => 'File'));
 		$porcentaje = $porcentaje - CIEN_PORCIENTO;
 
 		// Por ahora para probar es un 2% fijo
-		if( $porcentaje > 2 ){
+		if( $porcentaje > 2 && $menorMayor == false ){
 			$seGano = $porcentaje;			
+		}
+
+		if( !empty( $menorMayor ) ){
+			if( $porcentaje < -2 ){
+				$seGano = $porcentaje;			
+			}
 		}
 
 		return $seGano;

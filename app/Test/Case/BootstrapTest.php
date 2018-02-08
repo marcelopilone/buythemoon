@@ -16,6 +16,19 @@ class BootstrapTest extends CakeTestCase {
 
 		$this->assertFalse( $porcentaje );
 
+		$porcentaje = calcularPorcentaje( $precioCompra = 2,$precioBittrex=1,$menorMayor=true );
+
+		$this->assertEquals( -50,$porcentaje );
+
+		$porcentaje = calcularPorcentaje( $precioCompra = 110,$precioBittrex=110.75,$menorMayor=true );
+
+		$this->assertFalse( $porcentaje );
+
+		$porcentaje = calcularPorcentaje( $precioCompra = 110,$precioBittrex=105,$menorMayor=true );
+
+		$this->assertEquals( -4.5454545454545467,$porcentaje );
+
+
 
 	}
 
