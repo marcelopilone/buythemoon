@@ -54,9 +54,9 @@ class MakeMoneyShell extends AppShell {
             		),
             	));
             	$precioCompra = $this->MovimientoParaAnalizar['Movimiento']['precio_compra'];
-            	$precioBittrex = $this->MovimientoParaAnalizar['Movimiento']['precio_compra'];
+            	$precioBittrex = $c['result'][0]->Last;
 
-            	$seGano = calcularPorcentaje( $precioCompra,$c['result'][0]->Last );
+            	$seGano = calcularPorcentaje( $precioCompra,$precioBittrex );
 
             	if( !empty( $seGano ) ){
             		$this->vender( $c,$seGano );
