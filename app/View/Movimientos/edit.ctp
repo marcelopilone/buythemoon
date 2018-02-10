@@ -6,7 +6,7 @@
 		echo $this->Form->input('id');
 		echo $this->Form->input('precio_compra');
 		echo $this->Form->input('precio_venta');
-		echo $this->Form->input('moneda');
+		echo $this->Form->input('cant_monedas');
 		echo $this->Form->input('moneda_de_intercambio');
 		echo $this->Form->input('porcentaje');
 		echo $this->Form->input('cantidad_inicial');

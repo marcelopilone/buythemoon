@@ -6,7 +6,7 @@
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('precio_compra'); ?></th>
 			<th><?php echo $this->Paginator->sort('precio_venta'); ?></th>
-			<th><?php echo $this->Paginator->sort('moneda'); ?></th>
+			<th><?php echo $this->Paginator->sort('cant_monedas'); ?></th>
 			<th><?php echo $this->Paginator->sort('moneda_de_intercambio'); ?></th>
 			<th><?php echo $this->Paginator->sort('porcentaje'); ?></th>
 			<th><?php echo $this->Paginator->sort('cantidad_inicial'); ?></th>
@@ -22,7 +22,7 @@
 		<td><?php echo h($movimiento['Movimiento']['id']); ?>&nbsp;</td>
 		<td><?php echo h($movimiento['Movimiento']['precio_compra']); ?>&nbsp;</td>
 		<td><?php echo h($movimiento['Movimiento']['precio_venta']); ?>&nbsp;</td>
-		<td><?php echo h($movimiento['Movimiento']['moneda']); ?>&nbsp;</td>
+		<td><?php echo h($movimiento['Movimiento']['cant_monedas']); ?>&nbsp;</td>
 		<td><?php echo h($movimiento['Movimiento']['moneda_de_intercambio']); ?>&nbsp;</td>
 		<td><?php echo h($movimiento['Movimiento']['porcentaje']); ?>&nbsp;</td>
 		<td><?php echo h($movimiento['Movimiento']['cantidad_inicial']); ?>&nbsp;</td>

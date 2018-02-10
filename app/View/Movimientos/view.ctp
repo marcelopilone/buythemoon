@@ -18,7 +18,7 @@
 		</dd>
 		<dt><?php echo __('Moneda'); ?></dt>
 		<dd>
-			<?php echo h($movimiento['Movimiento']['moneda']); ?>
+			<?php echo h($movimiento['Movimiento']['cant_monedas']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Moneda De Intercambio'); ?></dt>
