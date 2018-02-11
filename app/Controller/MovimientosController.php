@@ -19,8 +19,8 @@ class MovimientosController extends AppController {
 
 	public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('add','edit','delete','index');
-        $this->Auth->deny('index');
+        //$this->Auth->allow('add','edit','delete');
+        $this->Auth->deny('index','add','edit','delete');
     }
 
 /**
