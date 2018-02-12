@@ -10,15 +10,15 @@ class MakeMoneyShell extends AppShell {
 
 
     public function main() {
+        /*Estos datos los tiene que tomar de base de datos*/
+            $cantInicial = 100;
 
-        $cantInicial = 100;
+            $operacionParaGuardar = 'https://bittrex.com/api/v1.1/public/getmarketsummary?market=usdt-neo';
 
-        $operacionParaGuardar = 'https://bittrex.com/api/v1.1/public/getmarketsummary?market=usdt-neo';
-
-        $json = file_get_contents($operacionParaGuardar);
-        $cur  = json_decode($json);
-        $c    = get_object_vars($cur);
-
+            $json = file_get_contents($operacionParaGuardar);
+            $cur  = json_decode($json);
+            $c    = get_object_vars($cur);
+        /**/
         $cantMovimientos = $this->Movimiento->find('count');
 
         if( empty( $cantMovimientos ) ){
@@ -57,12 +57,12 @@ class MakeMoneyShell extends AppShell {
     }
 
     
-    public function vender( $c,$seGano ){
+    public function vender( $c,$seGano,$movimientoParaAnalizar ){
     	
-		$cantFinal = $c['result'][0]->Last * $this->MovimientoParaAnalizar['Movimiento']['cant_monedas'];
+		$cantFinal = $c['result'][0]->Last * $movimientoParaAnalizar['Movimiento']['cant_monedas'];
 		$guardarMovimientoVenta = array(
 			'Movimiento' => array(
-				'id' => $this->MovimientoParaAnalizar['Movimiento']['id'],
+				'id' => $movimientoParaAnalizar['Movimiento']['id'],
 				'precio_venta' => $c['result'][0]->Last,
 				'porcentaje' => $seGano,
 				'cantidad_final' => $cantFinal,
@@ -115,20 +115,20 @@ class MakeMoneyShell extends AppShell {
 
 
     public function seGanoPlataSiNo( $c ){
-         $this->MovimientoParaAnalizar = $this->Movimiento->find('first',array(
+         $movimientoParaAnalizar = $this->Movimiento->find('first',array(
                     'recursive' => -1,
                     'limit' => 1,
                     'conditions' => array(
                         'Movimiento.compra_o_venta' => false
                     ),
                 ));
-        $precioCompra = $this->MovimientoParaAnalizar['Movimiento']['precio_compra'];
+        $precioCompra = $movimientoParaAnalizar['Movimiento']['precio_compra'];
         $precioBittrex = $c['result'][0]->Last;
 
         $seGano = calcularPorcentaje( $precioCompra,$precioBittrex );
 
         if( !empty( $seGano ) ){
-            $this->vender( $c,$seGano,$this->MovimientoParaAnalizar );
+            $this->vender( $c,$seGano,$movimientoParaAnalizar );
 
             $this->out('<success>****************Se vendio************************</success>');
 
