@@ -144,12 +144,12 @@ Cache::config('default', array('engine' => 'File'));
 		$porcentaje = $porcentaje - CIEN_PORCIENTO;
 
 		// Por ahora para probar es un 2% fijo
-		if( $porcentaje > 0.2 && $menorMayor == false ){
+		if( $porcentaje >= 0.2 && $menorMayor == false ){
 			$seGano = $porcentaje;			
 		}
 
 		if( !empty( $menorMayor ) ){
-			if( $porcentaje < -0.2 ){
+			if( $porcentaje <= -0.2 ){
 				$seGano = $porcentaje;			
 			}
 		}

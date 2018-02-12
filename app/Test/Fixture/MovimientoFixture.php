@@ -36,7 +36,7 @@ class MovimientoFixture extends CakeTestFixture {
 			'precio_venta' => 80,
 			'moneda' => 'Lorem ipsum dolor sit amet',
 			'moneda_de_intercambio' => 'Lorem ipsum dolor sit amet',
-			'porcentaje' => 'Lorem ipsum dolor sit amet',
+			'porcentaje' => 5,
 			'cantidad_inicial' => 100.00,
 			'cantidad_final' => 120.00
 		),

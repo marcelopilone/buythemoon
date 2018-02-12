@@ -58,4 +58,26 @@ class MakeMoneyShellTest extends CakeTestCase {
 
 	}
 
+	public function testCalcularPorcentajeGanado(){
+
+		$args = array(
+			0 => 4,
+ 		);
+
+		$resultado = $this->MakeMoneyShell->calcularPorcentajeGanado( $args );
+
+		$this->assertFalse( $resultado );
+
+		$args = array(
+			0 => 100,
+ 		);
+ 		
+		$resultado = $this->MakeMoneyShell->calcularPorcentajeGanado( $args );
+
+		$this->assertNotEmpty( $resultado );
+
+
+
+	}
+
 }
