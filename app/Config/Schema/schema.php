@@ -94,6 +94,19 @@ class AppSchema extends CakeSchema {
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
 	);
 
+	public $procesos = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 20, 'unsigned' => true, 'key' => 'primary'),
+		'username' => array('type' => 'string', 'null' => false, 'unsigned' => true),
+		'password' => array('type' => 'string', 'null' => false, 'unsigned' => true),
+		'role' => array('type' => 'string', 'null' => true, 'default' => 0, 'unsigned' => true),
+        'updated' 	 	=> array('type' => 'datetime', 'null' => true, 'default' => null),
+        'created' 	 	=> array('type' => 'datetime', 'null' => true, 'default' => null),
+		'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+		),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
+	);
+
 	public $movimientos = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 20, 'unsigned' => true, 'key' => 'primary'),
 		'precio_compra' =>  array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,12','unsigned' => false),
@@ -101,6 +114,7 @@ class AppSchema extends CakeSchema {
 		'cant_monedas' =>  array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,12','unsigned' => false),
 		'moneda_de_intercambio' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 64, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'porcentaje' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 64, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'proceso_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 20, 'unsigned' => true, 'key' => 'primary'),
 		'cantidad_inicial' =>  array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,12','unsigned' => false),
 		'cantidad_final' =>  array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,12','unsigned' => false),
 		'compra_o_venta' => array('type' => 'boolean', 'null' => false, 'default' => false),
