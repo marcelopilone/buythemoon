@@ -96,11 +96,11 @@ class AppSchema extends CakeSchema {
 
 	public $procesos = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 20, 'unsigned' => true, 'key' => 'primary'),
-		'username' => array('type' => 'string', 'null' => false, 'unsigned' => true),
-		'password' => array('type' => 'string', 'null' => false, 'unsigned' => true),
-		'role' => array('type' => 'string', 'null' => true, 'default' => 0, 'unsigned' => true),
-        'updated' 	 	=> array('type' => 'datetime', 'null' => true, 'default' => null),
-        'created' 	 	=> array('type' => 'datetime', 'null' => true, 'default' => null),
+		'url-api' => array('type' => 'string', 'null' => false, 'unsigned' => true),
+		'key-api' => array('type' => 'string', 'null' => false, 'unsigned' => true),
+		'cantidad' => array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,12','unsigned' => false),
+        'updated' => array('type' => 'datetime', 'null' => true, 'default' => null),
+        'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),

@@ -27,7 +27,7 @@ class CurrenciesController extends AppController {
 
 	public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('ranking','add_vote','all_currencies','calculate','simple');
+        $this->Auth->allow('ranking','add_vote','all_currencies','calculate','simple','table');
         $this->Auth->deny('index');
     }
 /**
@@ -38,6 +38,20 @@ class CurrenciesController extends AppController {
 	public function index() {
 		//debug( $this->Session->read() );
 		$this->Currency->recursive = 0;
+		$this->set('currencies', $this->Paginator->paginate());
+	}
+
+	public function table() {
+		//debug( $this->Session->read() );
+		$this->Currency->recursive = 0;
+
+		$this->Paginator->settings = array(
+        	'order' => array(
+            	'Currency.rank' => 'asc'
+        	),
+        	'limit' => 100
+    	);
+    	
 		$this->set('currencies', $this->Paginator->paginate());
 	}
 
