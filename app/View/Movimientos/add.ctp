@@ -1,3 +1,24 @@
+<script type="text/javascript">
+	
+	function testPost(){	
+		jQuery.ajax({
+			type:'POST',
+			async: true,
+			cache: false,
+			url: 'http://localhost/movimientos/add',
+			success: function(response) {					
+				//success
+				console.log(response);                
+			},
+			error: function(response) {					
+				console.log(response);
+			},
+			data:jQuery('form').serialize()
+		});
+	}
+
+</script>
+
 <div class="movimientos form">
 <?php echo $this->Form->create('Movimiento'); ?>
 	<fieldset>
@@ -12,7 +33,13 @@
 		echo $this->Form->input('cantidad_final');
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+<?php 
+echo $this->Form->button('guardar',array(
+	'onclick'=>'testPost()',
+	'escape' => false,
+)
+);
+?>
 </div>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>

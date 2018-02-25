@@ -57,8 +57,7 @@ class MovimientosController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Movimiento->create();
 			if ($this->Movimiento->save($this->request->data)) {
-				$this->Flash->success(__('The movimiento has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				return $this->Flash->success(__('The movimiento has been saved.'));
 			} else {
 				$this->Flash->error(__('The movimiento could not be saved. Please, try again.'));
 			}

@@ -49,9 +49,12 @@ class CurrenciesController extends AppController {
         	'order' => array(
             	'Currency.rank' => 'asc'
         	),
+        	'conditions' => array(
+        		'Currency.rank >=' => 0,
+        		'Currency.rank <=' => 100,
+        	),
         	'limit' => 100
     	);
-    	
 		$this->set('currencies', $this->Paginator->paginate());
 	}
 
