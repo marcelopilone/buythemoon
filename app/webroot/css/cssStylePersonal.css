@@ -137,4 +137,6 @@ a:focus, a:hover {
         color: #fd0404 !important;
     }
 
-
+    .bordeadoTabla{
+        border: 2px solid black !important;
+    }

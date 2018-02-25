@@ -55,7 +55,22 @@ class CurrenciesController extends AppController {
         	),
         	'limit' => 100
     	);
+		$countCoins = $this->Currency->find('count');
+		$countCoinsGreen = $this->Currency->find('count',array(
+			'conditions' => array(
+				'Currency.percent_change_24h >=' => 0
+			)
+		));
+		$countCoinsRed = $this->Currency->find('count',array(
+			'conditions' => array(
+				'Currency.percent_change_24h <' => 0
+			)
+		));
+
 		$this->set('currencies', $this->Paginator->paginate());
+		$this->set('countCoins', $countCoins);
+		$this->set('countCoinsGreen', $countCoinsGreen);
+		$this->set('countCoinsRed', $countCoinsRed);
 	}
 
 	/**
