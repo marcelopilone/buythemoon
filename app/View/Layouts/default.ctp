@@ -93,10 +93,10 @@ $cakeDescription = '- Cryptocurrency Market Capitalizations with voice';
       <li><a href="https://www.facebook.com/buythemoon.org/" target="_blank"><i class="fa fa-facebook-official" aria-hidden="true"></i> Facebook</a></li>
     </ul>
     <ul class="nav navbar-nav">
-      <li><a href="http://buythemoon.org/currencies/ranking"><i class="glyphicon glyphicon-tasks"></i> Cryptocurrency Market</a></li>
+      <li><a href="https://buythemoon.org/currencies/ranking"><i class="glyphicon glyphicon-tasks"></i> Cryptocurrency Market</a></li>
     </ul>
     <ul class="nav navbar-nav">
-      <li><a href="http://buythemoon.org/currencies/calculate"><i class="glyphicon glyphicon-piggy-bank"></i> Calculate</a></li>
+      <li><a href="https://buythemoon.org/currencies/calculate"><i class="glyphicon glyphicon-piggy-bank"></i> Calculate</a></li>
     </ul>
   </div>
 </nav>
