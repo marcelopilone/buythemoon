@@ -83,7 +83,7 @@ $cakeDescription = '- Cryptocurrency Market Capitalizations with voice';
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="http://buythemoon.org/" style="color: #5bc0de !important;">Buy the moon (Beta)</a>
+    <a class="navbar-brand" href="https://buythemoon.org/" style="color: #5bc0de !important;">Buy the moon (Beta)</a>
   </div>
  
   <!-- Agrupar los enlaces de navegación, los formularios y cualquier
