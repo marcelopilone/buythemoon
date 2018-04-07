@@ -84,6 +84,7 @@ class AppSchema extends CakeSchema {
 		'rank' => array('type' => 'integer', 'null' => false, 'default' => 0, 'unsigned' => true),
 		'price_btc' =>  array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,15','unsigned' => false),
 		'price_usd' =>  array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,12','unsigned' => false),
+		'date_importation' => array('type' => 'datetime', 'null' => true, 'default' => null),
         'updated' 	 	=> array('type' => 'datetime', 'null' => true, 'default' => null),
         'created' 	 	=> array('type' => 'datetime', 'null' => true, 'default' => null),
 		'indexes' => array(
