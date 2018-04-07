@@ -70,6 +70,28 @@ class AppSchema extends CakeSchema {
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
 	);
 
+	public $news = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 20, 'unsigned' => true, 'key' => 'primary'),
+		'currency_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 20, 'unsigned' => true, 'key' => 'primary'),
+		'24h_volume_usd' =>  array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,2','unsigned' => false),
+		'market_cap_usd' =>  array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,2','unsigned' => false),
+		'available_supply' =>  array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,2','unsigned' => false),
+		'total_supply' =>  array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,2','unsigned' => false),
+		'max_supply' =>  array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,2','unsigned' => false),
+		'percent_change_1h' =>  array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,2','unsigned' => false),
+		'percent_change_24h' =>  array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,2','unsigned' => false),
+		'percent_change_7d' =>  array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,2','unsigned' => false),
+		'rank' => array('type' => 'integer', 'null' => false, 'default' => 0, 'unsigned' => true),
+		'price_btc' =>  array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,15','unsigned' => false),
+		'price_usd' =>  array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,12','unsigned' => false),
+        'updated' 	 	=> array('type' => 'datetime', 'null' => true, 'default' => null),
+        'created' 	 	=> array('type' => 'datetime', 'null' => true, 'default' => null),
+		'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+		),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
+	);
+
 	public $ips = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 20, 'unsigned' => true, 'key' => 'primary'),
 		'number' => array('type' => 'string', 'null' => false, 'default' => 0, 'length' => 50,'unsigned' => true),
