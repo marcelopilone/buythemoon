@@ -1,11 +1,3 @@
-<?php
-/**
- * Buy the moon
- * 
- */
-
-$cakeDescription = '- Cryptocurrency Market Capitalizations with voice';
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +9,14 @@ $cakeDescription = '- Cryptocurrency Market Capitalizations with voice';
     <meta property="og:url" content="http://www.buythemoon.org" />
 	<?php echo $this->Html->charset(); ?>
 	<title>
+    <?php
+/**
+ * Buy the moon
+ * 
+ */
+
+$cakeDescription = '- Cryptocurrency Market Capitalizations with voice';
+?>
     Buy The Moon
 		<?php echo $cakeDescription; ?>
 	</title>
