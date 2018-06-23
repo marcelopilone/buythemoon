@@ -4,7 +4,8 @@ class ImportShell extends AppShell {
 
     public function main() {
 
-        $Currency = ClassRegistry::init('Currency');
+        $Currency        = ClassRegistry::init('Currency');
+        $CurrencyHistory = ClassRegistry::init('CurrenciesHystory');
 
         $api  = API_COIN_MARKET_CAP_PERSONAL_FULL;
 		$json = file_get_contents($api);
@@ -52,7 +53,7 @@ class ImportShell extends AppShell {
 					'rank'               => $rank,
 					'price_btc'          => $priceBtc,
 	   				'price_usd'          => $priceUsd,
-				)
+				),
 			);
 
 			$currencyExist = $Currency->find('first',array(
@@ -84,6 +85,21 @@ class ImportShell extends AppShell {
 				echo "Hubo un problema\n";
 				$save->validationErrors;
 			}
+			if( !empty( $currency['Currency']['id'] ) ){
+				$currencyPriceHistory = array(
+					'CurrenciesHystory' => array(
+						'currency_id' => $currency['Currency']['id'],
+						'price_usd'   => $priceUsd,
+					),
+				);
+				$CurrencyHistory->create();
+				$saveCurrencyHistory = $CurrencyHistory->save( $currencyPriceHistory );
+				if(  $saveCurrencyHistory == false ){
+					echo "Hubo un problema\n";
+					$save->validationErrors;
+				}
+			}
+
 
 			echo $estado.$name."\n";
 

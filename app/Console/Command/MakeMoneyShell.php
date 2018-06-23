@@ -20,7 +20,7 @@ class MakeMoneyShell extends AppShell {
             $c    = get_object_vars($cur);
         /**/
         $cantMovimientos = $this->Movimiento->find('count');
-
+        debug($this->args);
         if( empty( $cantMovimientos ) ){
                 $this->out('<success>Iniciando el proceso de compra . . .</success>');
 

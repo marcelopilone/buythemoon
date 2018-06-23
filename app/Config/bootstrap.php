@@ -136,7 +136,7 @@ Cache::config('default', array('engine' => 'File'));
 	* $precioCompra pued3e ser el ultimo valor tambien
 	*/
 	function calcularPorcentaje( $precioCompra,$precioBitrex,$menorMayor = false ){
-
+		debug( $this->params );
     	$seGano = false;
 
     	$porcentaje = $precioBitrex * CIEN_PORCIENTO / $precioCompra;
