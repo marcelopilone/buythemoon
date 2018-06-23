@@ -37,7 +37,7 @@ class CurrenciesHystoryFixture extends CakeTestFixture {
 		array(
 			'id' => 1,
 			'currency_id' => 1,
-			'price_usd' => '',
+			'price_usd' => 10.20,
 			'updated' => '2018-06-23 09:54:08',
 			'created' => '2018-06-23 09:54:08'
 		),

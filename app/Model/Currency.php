@@ -6,6 +6,21 @@ App::uses('AppModel', 'Model');
  */
 class Currency extends AppModel {
 
+    public $hasMany = array(
+        'CurrenciesHystory' => array(
+            'className' => 'CurrenciesHystory',
+            'foreignKey' => 'currency_id',
+            'dependent' => true,
+            'conditions' => '',
+            'fields' => '',
+            'limit' => '',
+            'offset' => '',
+            'exclusive' => '',
+            'finderQuery' => '',
+            'counterQuery' => ''
+        ),
+    );
+
 /**
  * Validation rules
  *
