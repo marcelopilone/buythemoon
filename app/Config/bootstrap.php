@@ -157,3 +157,7 @@ Cache::config('default', array('engine' => 'File'));
 		return $seGano;
 
     }
+
+    define("API_GENERICA","https://api.taapi.io/");
+    define("TIPO_COMPRA","COMPRA");
+    define("TIPO_VENTA","VENTA");
