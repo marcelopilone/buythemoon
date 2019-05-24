@@ -161,3 +161,4 @@ Cache::config('default', array('engine' => 'File'));
     define("API_GENERICA","https://api.taapi.io/");
     define("TIPO_COMPRA","COMPRA");
     define("TIPO_VENTA","VENTA");
+    define("CANTIDAD_INICIAL",1000); //cantidad de dinero inicial

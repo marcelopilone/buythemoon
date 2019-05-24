@@ -14,7 +14,7 @@ class BotMoneyShell extends AppShell {
 
 		$precioMoneda = $this->precioMoneda( $pares = 'BTCUSDT' );
 
-        $this->comprar_si_o_no_rsi( $valorIndicador );
+        $this->comprar_si_o_no_rsi( $valorIndicador,$precioMoneda );
 
     }
 
@@ -39,6 +39,11 @@ class BotMoneyShell extends AppShell {
 
     }
 
+    /**
+     * devuelve el precio de la moneda
+     * @param  [string] $pares [description]
+     * @return [int]        [description]
+     */
     public function precioMoneda( $pares ){
 
     	$precio = 'https://api.binance.com/api/v1/ticker/price?symbol='.$pares;
@@ -55,12 +60,23 @@ class BotMoneyShell extends AppShell {
      * @param  [array] $valorIndicador [description]
      * @return [type]                 [description]
      */
-    public function comprar_si_o_no_rsi( $valorIndicador ){
+    public function comprar_si_o_no_rsi( $valorIndicador,$precioMoneda ){
 
         $value = $valorIndicador['value'];
+        $ultimaOperacion = $this->dameUltimaOperacion();
+
+        //vendo si comparado con el ultimo precio ya bajo un 5%
+        $this->venderSiBajoUn5PorcientoDelUltimoPrecio( $ultimaOperacion );
+
+
         if( $value <= 30 ){
+            // dameUltimoMovimiento
             // comprar si la ultima operacion no es una compra
-            // return 
+            if( $ultimaOperacion['Movimiento']['compra_o_venta'] != TIPO_COMPRA ){
+                $this->comprar( $valorIndicador,$precioMoneda );
+                // poner stop loss si el ultimo valor del movimiento de compra es un 5% menos esto tiene que interactuar con la api
+                // $this->ponerStopLoss();
+            }
         }
         if( $value >= 55 ){
             // vender si la ultima operacion no es una venta
@@ -69,8 +85,37 @@ class BotMoneyShell extends AppShell {
 
     }
 
-    public function comprar(  ){
+    /**
+     * guarda el movimiento de compra
+     * @param  [int] $valorIndicador [description]
+     * @param  [int] $precioMoneda   [description]
+     * @return [true]                 save
+     */
+    public function comprar( $valorIndicador,$precioMoneda ){
 
+        $ultimaCantInicial = $this->dameUltimaOperacion();
+        $cantInicial = CANTIDAD_INICIAL;
+        if( !empty( $ultimaCantInicial ) ){
+            $cantInicial = $ultimaCantInicial['Movimiento']['cantidad_inicial'];
+        }
+
+        $comprar = array(
+            'Movimiento' => array(
+                'cantidad_inicial' =>  $cantInicial,
+                'cant_monedas' =>  $this->dameCantidadDeMonedas( $cantInicial,$precioMoneda ),
+                'precio_compra' => $precioMoneda,
+                'moneda_de_intercambio' => 'BTCUSDT',
+                'compra_o_venta' => TIPO_COMPRA,
+                'rsi' =>  $valorIndicador,
+            )
+        );
+
+
+        if( !( $this->Movimiento->save( $comprar ) ) ){
+            throw new Exception("Error al guardar");
+        }else{
+            return true;
+        }
 
     }
 
@@ -79,10 +124,36 @@ class BotMoneyShell extends AppShell {
             
     }
 
+    /**
+     * Devuelve la cant de monedas segun la cant inicial
+     * @param  [int] $cantInicial  [description]
+     * @param  [int] $precioMoneda [description]
+     * @return int
+     */
+    public function dameCantidadDeMonedas( $cantInicial,$precioMoneda ){
 
-    public function dameUltimoTipoDeOperacion(){
+        return $cantInicial / $precioMoneda;
 
     }
+
+    /**
+     * Devuelve el ultimo movimiento
+     * @return [array] [description]
+     */
+    public function dameUltimaOperacion(){
+
+        $ultimaOperacion = $this->Movimiento->find('first',array(
+            'limit' => 1,
+            'order' => array(
+                'Movimiento.id DESC'
+            )
+        ));
+
+        return $ultimaOperacion;
+
+    }
+
+
 
 
 }
