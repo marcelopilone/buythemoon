@@ -66,22 +66,29 @@ class BotMoneyShell extends AppShell {
         $ultimaOperacion = $this->dameUltimaOperacion();
 
         //vendo si comparado con el ultimo precio ya bajo un 5%
-        $this->venderSiBajoUn5PorcientoDelUltimoPrecio( $ultimaOperacion );
-
+        $porcentajeDeGanancia = $this->damePorcentajeDeGananciaActual( $ultimaOperacion );
+        
 
         if( $value <= 30 ){
-            // dameUltimoMovimiento
             // comprar si la ultima operacion no es una compra
             if( $ultimaOperacion['Movimiento']['compra_o_venta'] != TIPO_COMPRA ){
-                $this->comprar( $valorIndicador,$precioMoneda );
+                return $this->comprar( $valorIndicador,$precioMoneda );
                 // poner stop loss si el ultimo valor del movimiento de compra es un 5% menos esto tiene que interactuar con la api
                 // $this->ponerStopLoss();
             }
         }
         if( $value >= 55 ){
             // vender si la ultima operacion no es una venta
-            // return 
+            return $this->vender( $valorIndicador,$precioMoneda );
         }
+
+    }
+
+    /**
+     * 
+     * @return true|false
+     */
+    public function damePorcentajeDeGananciaActual(){
 
     }
 
@@ -93,15 +100,9 @@ class BotMoneyShell extends AppShell {
      */
     public function comprar( $valorIndicador,$precioMoneda ){
 
-        $ultimaCantInicial = $this->dameUltimaOperacion();
-        $cantInicial = CANTIDAD_INICIAL;
-        if( !empty( $ultimaCantInicial ) ){
-            $cantInicial = $ultimaCantInicial['Movimiento']['cantidad_inicial'];
-        }
-
         $comprar = array(
             'Movimiento' => array(
-                'cantidad_inicial' =>  $cantInicial,
+                'cantidad_inicial' =>  $this->dameCantidadInicial(),
                 'cant_monedas' =>  $this->dameCantidadDeMonedas( $cantInicial,$precioMoneda ),
                 'precio_compra' => $precioMoneda,
                 'moneda_de_intercambio' => 'BTCUSDT',
@@ -119,9 +120,71 @@ class BotMoneyShell extends AppShell {
 
     }
 
-    public function vender(  ){
-        
+    /**
+     * Vende la moneda guardando el movimiento
+     * @param  [int] $valorIndicador [description]
+     * @param  [int] $precioMoneda   [description]
+     * @return [true]                 [description]
+     */
+    public function vender( $valorIndicador,$precioMoneda ){
+    
+        $ultimaOperacion = $this->dameUltimaOperacion();
+
+        $cantFinalPorcentaje = $this->dameCantidadFinalConPorcentaje( $this->dameCantidadInicial(),$precioMoneda,$ultimaOperacion );
+
+        $vender = array(
+            'cantidad_inicial' =>  $this->dameCantidadInicial(),
+            'cant_monedas' =>  $ultimaOperacion['Movimiento']['cant_monedas'],
+            'precio_compra' => $ultimaOperacion['Movimiento']['precio_compra'],
+            'precio_venta' =>  $precioMoneda,
+            'moneda_de_intercambio' => 'BTCUSDT',
+            'porcentaje' => $cantFinalPorcentaje['porcentaje'],
+            'cantidad_final' => $cantFinalPorcentaje['cant_final'],
+            'compra_o_venta' => TIPO_VENTA,
+            'rsi' =>  $valorIndicador,
+        );
+
+        if( !( $this->Movimiento->save( $vender ) ) ){
+            throw new Exception("Error al guardar");
+        }else{
+            return true;
+        }        
             
+    }
+
+    /**
+     * Devuelve la cantidad inicial de la ultima operacion
+     * [dameCantidadInicial description]
+     * @return [int] [description]
+     */
+    public function dameCantidadInicial(  ){
+
+        $ultimaOperacion = $this->dameUltimaOperacion();
+
+        $cantInicial = CANTIDAD_INICIAL;
+        if( !empty( $ultimaOperacion ) ){
+            $cantInicial = $ultimaOperacion['Movimiento']['cantidad_inicial'];
+        }
+
+        return $cantInicial;
+    }
+
+    /**
+     * [dameCantidadFinalConPorcentaje devuelve el porcentaje de ganancia de la operacion y la cant final del balance]
+     * @param  [int] $cantInicial     [description]
+     * @param  [int] $precioMoneda    [description]
+     * @param  [array] $ultimaOperacion [description]
+     * @return [array]                  [description]
+     */
+    public function dameCantidadFinalConPorcentaje( $cantInicial,$precioMoneda,$ultimaOperacion ){
+
+        $cantFinal = $ultimaOperacion['Movimiento']['cant_monedas'] * $precioMoneda;
+
+        $resultadoFinal = array(
+            'porcentaje' => $cantFinal * 100 / $ultimaOperacion['Movimiento']['cant_inicial'],
+            'cant_final' => $cantFinal,
+        );
+
     }
 
     /**
