@@ -28,6 +28,7 @@ class ImportShellTest extends CakeTestCase {
         $out = $this->getMock('ConsoleOutput', array(), array(), '', false);
         $in = $this->getMock('ConsoleInput', array(), array(), '', false);
 		$this->BotMoney         = new BotMoneyShell;
+		$this->Movimiento   = ClassRegistry::init('Movimiento');
 	}
 
 /**
@@ -49,7 +50,7 @@ class ImportShellTest extends CakeTestCase {
 
 		$ret = $this->BotMoney->damePorcentajeDeGananciaActual( $ultimaOperacion,$precioMoneda );
 
-		$this->assertFalse($ret);
+		$this->assertTrue($ret);
 
 		$ultimaOperacion = array(
 			'Movimiento' => array(
@@ -61,7 +62,7 @@ class ImportShellTest extends CakeTestCase {
 
 		$ret = $this->BotMoney->damePorcentajeDeGananciaActual( $ultimaOperacion,$precioMoneda );
 
-		$this->assertTrue($ret);
+		$this->assertFalse($ret);
 
 		$ultimaOperacion = array(
 			'Movimiento' => array(
@@ -73,7 +74,93 @@ class ImportShellTest extends CakeTestCase {
 
 		$ret = $this->BotMoney->damePorcentajeDeGananciaActual( $ultimaOperacion,$precioMoneda );
 
-		$this->assertFalse($ret);
+		$this->assertTrue($ret);
+
+	}
+
+	public function test__comprarOnoRsi(){
+
+		if( !( $this->Movimiento->deleteAll( true) )){
+			throw new Exception("Error Processing Request", 1);
+		}
+
+		//primer vuelta
+		$valorIndicador = array('value'=>20.5);
+		$precioMoneda = 8;
+
+		$ultimaOperacion = $this->BotMoney->dameUltimaOperacion();
+
+		$this->BotMoney->comprar_si_o_no_rsi( $valorIndicador,$precioMoneda,$ultimaOperacion );
+
+		// segunda vuelta
+		$valorIndicador = array('value'=>70.5);
+		$precioMoneda = 8.5;
+
+		$ultimaOperacion = $this->BotMoney->dameUltimaOperacion();
+
+		$this->BotMoney->comprar_si_o_no_rsi( $valorIndicador,$precioMoneda,$ultimaOperacion );
+
+		// tercer vuelta
+		$valorIndicador = array('value'=>50.5);
+		$precioMoneda = 8.5;
+
+		$ultimaOperacion = $this->BotMoney->dameUltimaOperacion();
+
+		$this->BotMoney->comprar_si_o_no_rsi( $valorIndicador,$precioMoneda,$ultimaOperacion );
+
+		// cuarta vuelta
+		$valorIndicador = array('value'=>15.5);
+		$precioMoneda = 9.5;
+
+		$ultimaOperacion = $this->BotMoney->dameUltimaOperacion();
+
+		$this->BotMoney->comprar_si_o_no_rsi( $valorIndicador,$precioMoneda,$ultimaOperacion );
+
+
+		$todosLosMovimientos = $this->Movimiento->find('all',array(
+			'recursive' => -1,
+		));
+
+		// quinta vuelta
+		$valorIndicador = array('value'=>80.5);
+		$precioMoneda = 12.5;
+
+		$ultimaOperacion = $this->BotMoney->dameUltimaOperacion();
+
+		$this->BotMoney->comprar_si_o_no_rsi( $valorIndicador,$precioMoneda,$ultimaOperacion );
+
+
+		$todosLosMovimientos = $this->Movimiento->find('all',array(
+			'recursive' => -1,
+		));
+
+		// sexta vuelta
+		$valorIndicador = array('value'=>14.5);
+		$precioMoneda = 11.5;
+
+		$ultimaOperacion = $this->BotMoney->dameUltimaOperacion();
+
+		$this->BotMoney->comprar_si_o_no_rsi( $valorIndicador,$precioMoneda,$ultimaOperacion );
+
+
+		$todosLosMovimientos = $this->Movimiento->find('all',array(
+			'recursive' => -1,
+		));
+
+		// septima vuelta
+		$valorIndicador = array('value'=>90.5);
+		$precioMoneda = 4.5;
+
+		$ultimaOperacion = $this->BotMoney->dameUltimaOperacion();
+
+		$this->BotMoney->comprar_si_o_no_rsi( $valorIndicador,$precioMoneda,$ultimaOperacion );
+
+
+		$todosLosMovimientos = $this->Movimiento->find('all',array(
+			'recursive' => -1,
+		));
+
+		debug( $todosLosMovimientos );
 
 	}
 

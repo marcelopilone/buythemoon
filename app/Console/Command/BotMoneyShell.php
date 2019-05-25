@@ -14,7 +14,9 @@ class BotMoneyShell extends AppShell {
 
 		$precioMoneda = $this->precioMoneda( $pares = 'BTCUSDT' );
 
-        $this->comprar_si_o_no_rsi( $valorIndicador,$precioMoneda );
+        $ultimaOperacion = $this->dameUltimaOperacion();
+
+        $this->comprar_si_o_no_rsi( $valorIndicador,$precioMoneda,$ultimaOperacion );
 
     }
 
@@ -60,26 +62,31 @@ class BotMoneyShell extends AppShell {
      * @param  [array] $valorIndicador [description]
      * @return [type]                 [description]
      */
-    public function comprar_si_o_no_rsi( $valorIndicador,$precioMoneda ){
+    public function comprar_si_o_no_rsi( $valorIndicador,$precioMoneda,$ultimaOperacion ){
 
         $valorIndicador = $valorIndicador['value'];
-        $ultimaOperacion = $this->dameUltimaOperacion();
         //vendo si comparado con el ultimo precio ya bajo un 5%
         if( !empty( $ultimaOperacion ) ){
             $porcentajeDeGanancia = $this->damePorcentajeDeGananciaActual( $ultimaOperacion,$precioMoneda );
             if( $porcentajeDeGanancia ){
-                $this->out("<info>Voy a vender porque de mi ultima compra voy abajo un 5%</info>");
-                $this->vender( $valorIndicador,$precioMoneda );
+                $this->out("<info>Voy a vender porque de mi ultima compra voy abajo un 5% o menos</info>");
+                return $this->vender( $valorIndicador,$precioMoneda );
             }
         }
 
         if( $valorIndicador <= 30 ){
             // comprar si la ultima operacion no es una compra
-            if( $ultimaOperacion['Movimiento']['compra_o_venta'] != TIPO_COMPRA ){
-                $this->out("<info>Voy a comprar porque el rsi es menor a 30</info>");
+            if( empty( $ultimaOperacion ) ){
+                $this->out("<info>Voy a comprar porque el rsi es menor a 30(primera compra)</info>");
                 return $this->comprar( $valorIndicador,$precioMoneda );
+            }elseif( $ultimaOperacion['Movimiento']['compra_o_venta'] != TIPO_COMPRA  ){
                 // poner stop loss si el ultimo valor del movimiento de compra es un 5% menos esto tiene que interactuar con la api
                 // $this->ponerStopLoss();
+                $this->out("<info>Voy a comprar porque el rsi es menor a 30</info>");
+                return $this->comprar( $valorIndicador,$precioMoneda );
+            }
+            else{
+                return $this->out("<info>El rsi es menor a 30 pero no voy a comprar porque ya hay una compra</info>");
             }
         }
         if( $valorIndicador >= 70 && !empty( $ultimaOperacion ) ){
@@ -103,9 +110,10 @@ class BotMoneyShell extends AppShell {
      */
     public function damePorcentajeDeGananciaActual( $ultimaOperacion,$precioMoneda ){
 
-        $porcentaje = $precioMoneda * 100 / $ultimaOperacion['Movimiento']['precio_compra'] - 100;
+        $porcentaje =  $precioMoneda * 100 /  $ultimaOperacion['Movimiento']['precio_compra'] - 100;
+
         $ret = false;
-        if( $porcentaje >= -5 ){
+        if( $porcentaje <= -5 ){
             $ret = true;
         }
 
@@ -121,6 +129,8 @@ class BotMoneyShell extends AppShell {
      */
     public function comprar( $valorIndicador,$precioMoneda ){
 
+        $cantInicial = $this->dameCantidadInicial();
+        $this->Movimiento->clear();
         $comprar = array(
             'Movimiento' => array(
                 'cantidad_inicial' =>  $this->dameCantidadInicial(),
@@ -148,12 +158,11 @@ class BotMoneyShell extends AppShell {
      * @return [true]                 [description]
      */
     public function vender( $valorIndicador,$precioMoneda ){
-        debug( $valorIndicador);
-        debug( $precioMoneda);
         $ultimaOperacion = $this->dameUltimaOperacion();
 
         $cantFinalPorcentaje = $this->dameCantidadFinalConPorcentaje( $this->dameCantidadInicial(),$precioMoneda,$ultimaOperacion );
 
+        $this->Movimiento->clear();
         $vender = array(
             'cantidad_inicial' =>  $this->dameCantidadInicial(),
             'cant_monedas' =>  $ultimaOperacion['Movimiento']['cant_monedas'],
@@ -203,9 +212,11 @@ class BotMoneyShell extends AppShell {
         $cantFinal = $ultimaOperacion['Movimiento']['cant_monedas'] * $precioMoneda;
 
         $resultadoFinal = array(
-            'porcentaje' => $cantFinal * 100 / $ultimaOperacion['Movimiento']['cantidad_inicial'],
+            'porcentaje' => $cantFinal * 100 / $ultimaOperacion['Movimiento']['cantidad_inicial'] - 100,
             'cant_final' => $cantFinal,
         );
+
+        return $resultadoFinal;
 
     }
 
