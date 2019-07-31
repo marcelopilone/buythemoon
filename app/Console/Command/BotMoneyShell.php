@@ -194,7 +194,7 @@ class BotMoneyShell extends AppShell {
 
         $cantInicial = CANTIDAD_INICIAL;
         if( !empty( $ultimaOperacion ) ){
-            $cantInicial = $ultimaOperacion['Movimiento']['cantidad_inicial'];
+                $cantInicial = $ultimaOperacion['Movimiento']['cantidad_final'];
         }
 
         return $cantInicial;
