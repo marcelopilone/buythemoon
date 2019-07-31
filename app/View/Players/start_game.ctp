@@ -27,7 +27,8 @@
 							echo $this->Form->input('name',array(
 								'label' => false,
 								'class' => 'form-control',
-								'placeholder' => 'Name of player'
+								'placeholder' => 'Name of player',
+								'maxlength' => '20'
 							));
 						?>
 					</div>
