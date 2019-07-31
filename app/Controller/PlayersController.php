@@ -112,4 +112,9 @@ class PlayersController extends AppController {
 	public function start_game(  ){
 
 	}
+
+	public function rules(  ){		
+		
+	}
+
 }
