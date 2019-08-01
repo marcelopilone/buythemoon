@@ -111,12 +111,13 @@ class PlayersController extends AppController {
 		return $this->redirect(array('action' => 'index'));
 	}
 
-	public function start_game(  ){
+	public function start_game( ){
 		if ($this->request->is('post')) {
 			$startPlay = array(
 				'Player' => array(
 					'name' => $this->request->data['Player']['name'],
 					'amount_usd' => 500.00,
+					'ip_client' => $_SERVER['HTTP_CLIENT_IP']
 				)
 			);
 			$this->Player->clear();

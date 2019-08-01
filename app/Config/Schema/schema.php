@@ -63,7 +63,7 @@ class AppSchema extends CakeSchema {
 		'name' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 64, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'amount_usd' =>  array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,12','unsigned' => false),
 		'amount_btc' =>  array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,12','unsigned' => false),
-
+		'ip_client' =>  array('type' => 'integer', 'null' => true, 'default' => null, 'length' => '20','unsigned' => false),
         'updated' 	 	=> array('type' => 'datetime', 'null' => true, 'default' => null),
         'created' 	 	=> array('type' => 'datetime', 'null' => true, 'default' => null),
         'deleted' => array('type' => 'boolean', 'null' => false, 'default'=>0),
