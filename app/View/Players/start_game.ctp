@@ -8,16 +8,8 @@
 				<h3>Sign In</h3>
 			</div>-->
 			<div class="card-body">
-				<form>
 					<?php 
-						echo $this->Form->create('Player', 
-							array(
-								'url' => array(
-										'controller' => 'players', 
-										'action' => 'playing'
-								),
-							)
-	  					);
+						echo $this->Form->create('Player');
 					?>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
@@ -38,8 +30,6 @@
 							echo $this->Form->end($options);
 						?>
 					</div>
-					
-				</form>
 			</div>
 			</div>
 		</div>

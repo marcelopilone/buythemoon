@@ -110,11 +110,19 @@ class PlayersController extends AppController {
 	}
 
 	public function start_game(  ){
+		if ($this->request->is(array('post'))) {
+			$startDefault = array(
 
+			);
+		}
 	}
 
 	public function rules(  ){		
 		
+	}
+
+	public function playing(){
+
 	}
 
 }
