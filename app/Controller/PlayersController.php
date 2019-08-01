@@ -19,7 +19,7 @@ class PlayersController extends AppController {
 
 	public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('start_game');
+        $this->Auth->allow('start_game','playing');
     }
 
 /**
@@ -95,25 +95,36 @@ class PlayersController extends AppController {
  * @param string $id
  * @return void
  */
+	
+
 	public function delete($id = null) {
 		$this->Player->id = $id;
 		if (!$this->Player->exists()) {
-			throw new NotFoundException(__('Invalid player'));
+			throw new NotFoundException(__('Invalid cuota mensuale'));
 		}
 		$this->request->allowMethod('post', 'delete');
 		if ($this->Player->delete()) {
-			$this->Flash->success(__('The player has been deleted.'));
+			$this->Flash->success(__('The cuota mensuale has been deleted.'));
 		} else {
-			$this->Flash->error(__('The player could not be deleted. Please, try again.'));
+			$this->Flash->error(__('The cuota mensuale could not be deleted. Please, try again.'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
 
 	public function start_game(  ){
-		if ($this->request->is(array('post'))) {
-			$startDefault = array(
-
+		if ($this->request->is('post')) {
+			$startPlay = array(
+				'Player' => array(
+					'name' => $this->request->data['Player']['name'],
+					'amount_usd' => 500.00,
+				)
 			);
+			$this->Player->clear();
+			if( $this->Player->save( $startPlay ) ){
+				return $this->redirect(
+					array('action' => 'playing',$this->Player->id)
+				);
+			}
 		}
 	}
 
@@ -121,8 +132,8 @@ class PlayersController extends AppController {
 		
 	}
 
-	public function playing(){
-
+	public function playing( $idUser ){
+		debug($idUser);
 	}
 
 }

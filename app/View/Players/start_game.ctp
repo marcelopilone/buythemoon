@@ -20,7 +20,8 @@
 								'label' => false,
 								'class' => 'form-control',
 								'placeholder' => 'Name of player',
-								'maxlength' => '20'
+								'maxlength' => '20',
+								'required' => true
 							));
 						?>
 					</div>
