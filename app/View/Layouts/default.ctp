@@ -100,16 +100,28 @@ $cakeDescription = '- Trading Cryptocurrency';
     </form>
   </div>
 </nav>
+	<div id="content" class="container">
 
-	
-		<div id="content" class="container">
+		<?php echo $this->Flash->render(); ?>
 
-			<?php echo $this->Flash->render(); ?>
+		<?php echo $this->fetch('content'); ?>
 
-			<?php echo $this->fetch('content'); ?>
-
-
-		</div>
-	
+  </div>
+  <style>
+      .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: red;
+        color: white;
+        text-align: center;
+      }
+  </style>
+	<footer id="sticky-footer" class="py-4 bg-dark text-white-50 footer" style="background-color: #1362928c !important;">
+    <div class="container text-center">
+      <small>Copyright &copy; Your Website</small>
+    </div>
+  </footer>
 </body>
 </html>

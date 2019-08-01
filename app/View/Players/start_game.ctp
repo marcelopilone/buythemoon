@@ -1,6 +1,6 @@
 <div class="container"><br/>
 	<h2 class="center color-blanco">
-		Trade the best you can compete with other people
+		Buy and sell cryptocurrencies as best you can and compete with other people
 	</h2><br/>
 	<div class="d-flex justify-content-center h-100">
 		<div class="card">
@@ -38,9 +38,20 @@
 							echo $this->Form->end($options);
 						?>
 					</div>
-					<?php ?>
+					
 				</form>
 			</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="row">
+			<div class="col-md-2 col-xs-2">
+				<?php 
+						echo $this->Html->image("bitcoin.png", array(
+                          'alt'   => "bitcoin",
+                          'class' => 'img-responsive' 
+                    	)); 
+					?>
 			</div>
 		</div>
 	</div>

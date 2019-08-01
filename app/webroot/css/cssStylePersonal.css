@@ -79,6 +79,10 @@ a:focus, a:hover {
     transition: border .2s ease-in-out !important;
 }
 
+#sticky-footer {
+  flex-shrink: none;
+}
+
 .thumbailSuccess{
     border: 4px solid #26ea23 !important;
 }
@@ -139,4 +143,8 @@ a:focus, a:hover {
 
     .bordeadoTabla{
         border: 2px solid black !important;
+    }
+
+    .fondoCeleste{
+        background-color: #1da1f2 !important;
     }
