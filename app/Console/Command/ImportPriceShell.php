@@ -12,7 +12,18 @@ class ImportPriceShell extends AppShell {
     	
 		$precioMoneda = $this->precioMoneda( $pares = 'BTCUSDT' );
 
-        debug( $precioMoneda );
+        $this->Coin->clear();
+        $updatePriceBit = array(
+            'Coin' => array(
+                'id' => 1,
+                'amount_usd' => $precioMoneda
+            )
+        );
+        if( $this->Coin->save( $updatePriceBit ) ){
+            $this->out('Se actualizo el precio');
+        }else{
+            throw new Exception("Error in update");
+        }
 
     }
   

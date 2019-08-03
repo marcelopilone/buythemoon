@@ -51,4 +51,5 @@ class Player extends AppModel {
 			),
 		),
 	);
+
 }

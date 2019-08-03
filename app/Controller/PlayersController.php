@@ -19,7 +19,7 @@ class PlayersController extends AppController {
 
 	public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('start_game','playing');
+        $this->Auth->allow('start_game','playing','price_bitcoin');
     }
 
 /**
@@ -117,7 +117,7 @@ class PlayersController extends AppController {
 				'Player' => array(
 					'name' => $this->request->data['Player']['name'],
 					'amount_usd' => 500.00,
-					'ip_client' => $_SERVER['HTTP_CLIENT_IP']
+					'ip_client' =>$_SERVER['REMOTE_ADDR']
 				)
 			);
 			$this->Player->clear();
@@ -127,6 +127,12 @@ class PlayersController extends AppController {
 				);
 			}
 		}
+
+
+	}
+
+	public function price_bitcoin() {
+		$this->layout = false;
 	}
 
 	public function rules(  ){		
@@ -134,7 +140,17 @@ class PlayersController extends AppController {
 	}
 
 	public function playing( $idUser ){
-		debug($idUser);
+
+		$player = $this->Player->find('first',array(
+			'recursive' => -1,
+			'conditions' => array(
+				'Player.id' => $idUser
+			)
+		));
+
+		$this->set(compact('player'));
+
+
 	}
 
 }

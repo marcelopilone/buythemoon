@@ -33,7 +33,7 @@ $cakeDescription = '- Trading Cryptocurrency';
   <!--Etiquetas facebook, falta la imagen-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
-  <meta name="description" content="Cryptocurrency Market Capitalizations with voice" />
+  <meta name="description" content="Cryptocurrency Trading Game" />
   <meta name="keywords" content="">
 
   <!-- -->
@@ -55,7 +55,7 @@ $cakeDescription = '- Trading Cryptocurrency';
   </script>
 
 </head>
-<body style="background-color: black;">
+<body class="bg-dark">
   <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -118,7 +118,7 @@ $cakeDescription = '- Trading Cryptocurrency';
         text-align: center;
       }
   </style>
-	<footer id="sticky-footer" class="py-4 bg-dark text-white-50 footer" style="background-color: #1362928c !important;">
+	<footer id="sticky-footer" class="py-4 bg-dark text-white-50 footer" style="background-color: #007bff9e !important">
     <div class="container text-center">
       <small>Copyright &copy; Your Website</small>
     </div>

@@ -60,10 +60,10 @@ class AppSchema extends CakeSchema {
 
 	public $players = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 20, 'unsigned' => true, 'key' => 'primary'),
-		'name' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 64, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
+		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 64, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'amount_usd' =>  array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,12','unsigned' => false),
 		'amount_btc' =>  array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '65,12','unsigned' => false),
-		'ip_client' =>  array('type' => 'integer', 'null' => true, 'default' => null, 'length' => '20','unsigned' => false),
+		'ip_client' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 64, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
         'updated' 	 	=> array('type' => 'datetime', 'null' => true, 'default' => null),
         'created' 	 	=> array('type' => 'datetime', 'null' => true, 'default' => null),
         'deleted' => array('type' => 'boolean', 'null' => false, 'default'=>0),
