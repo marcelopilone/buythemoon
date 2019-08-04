@@ -1,10 +1,10 @@
-<div class="col-md-12">
+
 		<div class="card">
 		  <div class="card-header center"><strong>Ranking</strong> | 
 		  	<strong>Your position is: #<?php echo $rankPlayer?></strong>
 		  </div>
 		  <div class="card-body">
-		  		<table class="table table-sm center" width="100%">
+		  		<table class="table table-sm center">
 		  			<?php 
 		  				$headers = array(
 		  					'#',
@@ -33,4 +33,3 @@
 		  		</table>
 		  </div> 
 		</div>
-	</div>
