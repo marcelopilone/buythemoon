@@ -19,7 +19,7 @@ class PlayersController extends AppController {
 
 	public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('start_game','playing','price_bitcoin');
+        $this->Auth->allow('start_game','playing','price_bitcoin','ranking');
     }
 
 /**
@@ -135,6 +135,32 @@ class PlayersController extends AppController {
 		$this->layout = false;
 	}
 
+	public function ranking( $idUser ){
+		$this->layout = false;	
+		$allPlayers = $this->Player->find('all',array(
+			'recursive' => -1,
+			'order' => array(
+				'Player.amount_usd DESC'
+			),
+		));
+
+		$ranking = $this->Player->find('all',array(
+			'recursive' => -1,
+			'order' => array(
+				'Player.amount_usd DESC'
+			),
+			'limit' => 10
+		));
+
+		$rank = array();
+		foreach( $allPlayers as $k=>$p ){
+			$rank[$p['Player']['id']] = $k+1;
+		}
+		$rankPlayer = $rank[ $idUser ];
+
+		$this->set(compact('player','ranking','rankPlayer'));
+	}
+
 	public function rules(  ){		
 		
 	}
@@ -148,26 +174,7 @@ class PlayersController extends AppController {
 			)
 		));
 
-		$ranking = $this->Player->find('all',array(
-			'recursive' => -1,
-			'order' => array(
-				'Player.amount_usd DESC'
-			),
-			'limit' => 10
-		));
-
-		$allPlayers = $this->Player->find('all',array(
-			'recursive' => -1,
-			'order' => array(
-				'Player.amount_usd DESC'
-			),
-		));
-
-		$rank = array();
-		foreach( $allPlayers as $k=>$p ){
-			$rank[$p['Player']['id']] = $k+1;
-		}
-		$rankPlayer = $rank[ $idUser ];
+		
 
 		$this->set(compact('player','ranking','rankPlayer'));
 

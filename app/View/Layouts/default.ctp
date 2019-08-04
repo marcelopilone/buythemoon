@@ -115,11 +115,11 @@ $cakeDescription = '- Trading Cryptocurrency';
         text-align: center;
       }
   </style>
-  <div style="min-height: 10px"></div>
-	<footer id="sticky-footer" class="py-4 bg-dark text-white-50 navbar navbar-fixed-bottom" style="background-color: #007bff9e !important">
+  <!--<div style="min-height: 10px"></div>-->
+	<!--<footer id="sticky-footer" class="py-4 bg-dark text-white-50 navbar navbar-fixed-bottom" style="background-color: #007bff9e !important">
     <div class="container center">
       <small>Copyright &copy; Your Website</small>
     </div>
-  </footer>
+  </footer>-->
 </body>
 </html>
