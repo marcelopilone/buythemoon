@@ -148,7 +148,28 @@ class PlayersController extends AppController {
 			)
 		));
 
-		$this->set(compact('player'));
+		$ranking = $this->Player->find('all',array(
+			'recursive' => -1,
+			'order' => array(
+				'Player.amount_usd DESC'
+			),
+			'limit' => 10
+		));
+
+		$allPlayers = $this->Player->find('all',array(
+			'recursive' => -1,
+			'order' => array(
+				'Player.amount_usd DESC'
+			),
+		));
+
+		$rank = array();
+		foreach( $allPlayers as $k=>$p ){
+			$rank[$p['Player']['id']] = $k+1;
+		}
+		$rankPlayer = $rank[ $idUser ];
+
+		$this->set(compact('player','ranking','rankPlayer'));
 
 
 	}

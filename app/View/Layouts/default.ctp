@@ -2,11 +2,8 @@
 <html>
 <head>
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Cryptocurrency Market Capitalizations With Voice" />
-    <meta property="og:description" content="Cryptocurrency Market Capitalizations With Voice" />
-    <meta property="og:image" content="http://www.buythemoon.org/img/principal.jpg" />
-    <meta property="og:image:alt" content="http://www.buythemoon.org/img/principal.jpg" />
-    <meta property="og:url" content="http://www.buythemoon.org" />
+    <meta property="og:title" content="Trading Cryptocurrency" />
+    <meta property="og:description" content="Trading Cryptocurrency" />
 	<?php echo $this->Html->charset(); ?>
 	<title>
     <?php
@@ -17,7 +14,7 @@
 
 $cakeDescription = '- Trading Cryptocurrency';
 ?>
-    Buy The Moon
+    RARARA
 		<?php echo $cakeDescription; ?>
 	</title>
 	<?php 
@@ -109,7 +106,7 @@ $cakeDescription = '- Trading Cryptocurrency';
   </div>
   <style>
       .footer {
-        position: fixed;
+        position: absolute;
         left: 0;
         bottom: 0;
         width: 100%;
@@ -118,8 +115,9 @@ $cakeDescription = '- Trading Cryptocurrency';
         text-align: center;
       }
   </style>
-	<footer id="sticky-footer" class="py-4 bg-dark text-white-50 footer" style="background-color: #007bff9e !important">
-    <div class="container text-center">
+  <div style="min-height: 10px"></div>
+	<footer id="sticky-footer" class="py-4 bg-dark text-white-50 navbar navbar-fixed-bottom" style="background-color: #007bff9e !important">
+    <div class="container center">
       <small>Copyright &copy; Your Website</small>
     </div>
   </footer>

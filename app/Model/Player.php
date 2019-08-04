@@ -14,11 +14,10 @@ class Player extends AppModel {
 	public $displayField = 'name';
 
 	public function __construct($id = false, $table = null, $ds = null) {
-        if ( AuthComponent::user('id')   ) {
-            $this->actsAs[] = 'SoftDelete';
-        }
+        $this->actsAs[] = 'SoftDelete';
         return parent::__construct($id, $table, $ds);
     }
+
     public function exists($id = null) {
         if ($this->Behaviors->loaded('SoftDelete')) {
             return $this->existsAndNotDeleted($id);
@@ -26,6 +25,7 @@ class Player extends AppModel {
             return parent::exists($id);
         }
     }
+    
     public function delete($id = null, $cascade = true) {
         $result = parent::delete($id, $cascade);
         if ($result === false && $this->Behaviors->enabled('SoftDelete')) {
