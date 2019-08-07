@@ -160,7 +160,7 @@ class PlayersController extends AppController {
 		}
 		$rankPlayer = $rank[ $idUser ];
 
-		$this->set(compact('player','ranking','rankPlayer'));
+		$this->set(compact('player','ranking','rankPlayer','idUser'));
 	}
 
 	public function rules(  ){		
@@ -207,11 +207,15 @@ class PlayersController extends AppController {
 				)
 			);
 			$this->Player->clear();
-			if( $this->Player->save( $updateAmountUsd ) ){
-				echo "The sale was made successfully";
+			if(  $this->Player->save( $updateAmountUsd  ) ){
+				echo "<br/><div class='alert alert-success center'><strong>The sale was successful</strong></div>";
 			}
-			$this->render('sellBitcoin', 'ajax');
+			$this->render('jaja','ajax');
+			
 		}
+	}
+
+	public function jaja(){
 	}
 
 	public function buyBitcoin( $idUser ){

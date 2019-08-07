@@ -4,7 +4,7 @@
 		  	<strong>Your position is: #<?php echo $rankPlayer?></strong>
 		  </div>
 		  <div class="card-body">
-		  		<table class="table table-sm center">
+		  		<table class="table table-sm center table-striped table-dark">
 		  			<?php 
 		  				$headers = array(
 		  					'#',
@@ -21,13 +21,18 @@
 		  				<?php 
 		  					$cels = array();
 		  					foreach( $ranking as $k=>$rank ){
-		  						$cels[] = array(
-		  							$k+1,
-		  							$rank['Player']['name'],
-		  							$this->Number->currency( $rank['Player']['amount_usd'] ),
-		  						);
+		  						$class = '';
+		  						if( $idUser == $rank['Player']['id']){
+		  							$class = 'bg-success';
+		  						}
+		  							echo "<tr class=".$class.">";
+		  							?>
+		  								<td><?php echo $k+1?></td>
+		  								<td><?php echo $rank['Player']['name']?></td>
+		  								<td><?php echo $this->Number->currency( $rank['Player']['amount_usd'] )?></td>
+		  							</tr>
+		  						<?php
 		  					}
-		  					echo $this->Html->tableCells( $cels );
 		  				?>
 		  			</tbody>
 		  		</table>

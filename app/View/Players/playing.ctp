@@ -53,8 +53,11 @@
 		?>
 	</div>
 </div>
-<div id="refreshSell"></div>
-<div id="refreshBuy"></div>
+<div class="row">
+	<div class="col-md-12">
+		<div id="refreshSell"></div>
+	</div>
+</div>
 <br/>
 <div class="row">
 	<div class="col-md-12">
@@ -69,7 +72,7 @@ $this->Js->get('#sellBitcoin')->event(
    $this->Js->request(
     array('action' => 'sellBitcoin', 'controller' => 'players',$player['Player']['id']),
     array(
-        array('async' => true, 'update' => '#refreshSell'),
+        'update' => '#refreshSell',
         'data' => $dataSell,
         'async' => true,    
         'dataExpression'=>true,

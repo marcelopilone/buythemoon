@@ -7,7 +7,7 @@
 					)
 				));
 			?>
-			  <div class="card-body">Price of Bitcoin in Binance: <strong><span class="text-primary"><?php echo 
+			  <div class="card-body">Price of Bitcoin in <strong>Binance:</strong> <strong><span class="text-primary"><?php echo 
 			  	$this->Number->currency($price['Coin']['amount_usd']);
 			  ?></span></strong></div> 
 		</div>
