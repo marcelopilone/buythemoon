@@ -17,9 +17,11 @@ class PlayersController extends AppController {
  */
 	public $components = array('Paginator', 'Session', 'Flash');
 
+	public $helpers = array('Js' => array('Jquery'));
+
 	public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('start_game','playing','price_bitcoin','ranking');
+        $this->Auth->allow('start_game','playing','price_bitcoin','ranking','sellBitcoin','buyBitcoin');
     }
 
 /**
@@ -174,11 +176,70 @@ class PlayersController extends AppController {
 			)
 		));
 
-		
+			
 
 		$this->set(compact('player','ranking','rankPlayer'));
 
 
+	}
+
+	public function sellBitcoin( $idUser ) {
+		if ($this->request->is('ajax')) {
+			$player = $this->Player->find('first',array(
+				'recursive' => -1,
+				'conditions' => array(
+					'Player.id' => $idUser
+				)
+			));
+
+			$Coin = ClassRegistry::init('Coin');
+			$price = $Coin->find('first',array(
+				'conditions' => array(
+					'Coin.id' => 1
+				)
+			));
+			//sell..
+			$updateAmountUsd = array(
+				'Player' => array(
+					'id' => $idUser,
+					'amount_btc' => 0,
+					'amount_usd' => $player['Player']['amount_btc'] * $price['Coin']['amount_usd'],
+				)
+			);
+			$this->Player->clear();
+			if( $this->Player->save( $updateAmountUsd ) ){
+				echo "The sale was made successfully";
+			}
+			$this->render('sellBitcoin', 'ajax');
+		}
+	}
+
+	public function buyBitcoin( $idUser ){
+		if ($this->request->is('ajax')) {
+			$player = $this->Player->find('first',array(
+				'recursive' => -1,
+				'conditions' => array(
+					'Player.id' => $idUser
+				)
+			));
+
+			$Coin = ClassRegistry::init('Coin');
+			$price = $Coin->find('first',array(
+				'conditions' => array(
+					'Coin.id' => 1
+				)
+			));
+			//buy..
+			$updateAmountBtc = array(
+				'Player' => array(
+					'id' => $idUser,
+					'amount_btc' => $player['Player']['amount_usd'] / $price['Coin']['amount_usd'],
+					'amount_usd' => 0,
+				)
+			);
+			$this->Player->clear();
+			$this->Player->save( $updateAmountBtc );
+		}
 	}
 
 }

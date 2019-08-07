@@ -22,8 +22,76 @@
 	</div>
 </div><br/>
 <div class="row">
+	<div class="col-md-6">
+		<?php 
+			echo $this->Form->create('Player',array(
+				'id' => 'sellBitcoin'
+			));
+			echo $this->Form->hidden('id',array(
+				'value' => $player['Player']['id']
+			));
+			echo $this->Form->hidden('sell',array(
+				'value' => true
+			));
+			$options = array('label' => 'Sell', 'class' => 'btn btn-danger btn-block', 'div' => false);
+			echo $this->Form->end($options);
+		?>
+	</div>
+	<div class="col-md-6">
+		<?php 
+			echo $this->Form->create('Player',array(
+				'id' => 'buyBitcoin',
+			));
+			echo $this->Form->hidden('id',array(
+				'value' => $player['Player']['id']
+			));
+			echo $this->Form->hidden('buy',array(
+				'value' => true
+			));
+			$options = array('label' => 'Buy', 'class' => 'btn btn-success btn-block', 'div' => false);
+			echo $this->Form->end($options);
+		?>
+	</div>
+</div>
+<div id="refreshSell"></div>
+<div id="refreshBuy"></div>
+<br/>
+<div class="row">
 	<div class="col-md-12">
 	<div id="loadranking">
 	</div>
 </div>
 </div>
+<?php 
+$dataSell = $this->Js->get('#sellBitcoin')->serializeForm(array('isForm' => true, 'inline' => true));
+$this->Js->get('#sellBitcoin')->event(
+   'submit',
+   $this->Js->request(
+    array('action' => 'sellBitcoin', 'controller' => 'players',$player['Player']['id']),
+    array(
+        array('async' => true, 'update' => '#refreshSell'),
+        'data' => $dataSell,
+        'async' => true,    
+        'dataExpression'=>true,
+        'method' => 'POST'
+    )
+  )
+);
+
+$dataBuy = $this->Js->get('#buyBitcoin')->serializeForm(array('isForm' => true, 'inline' => true));
+$this->Js->get('#buyBitcoin')->event(
+   'submit',
+   $this->Js->request(
+    array('action' => 'buyBitcoin', 'controller' => 'players',$player['Player']['id']),
+    array(
+        'update' => '#refreshBuy',
+        'data' => $dataBuy,
+        'async' => true,    
+        'dataExpression'=>true,
+        'method' => 'POST'
+    )
+  )
+);
+echo $this->Js->writeBuffer();
+?>
+
