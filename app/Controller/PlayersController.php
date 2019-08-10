@@ -166,7 +166,7 @@ class PlayersController extends AppController {
 		}
 		$rankPlayer = $rank[ $idUser ];
 
-		$this->set(compact('player','ranking','rankPlayer','idUser'));
+		$this->set(compact('player','ranking','rankPlayer','idUser','allPlayers'));
 	}
 
 	public function rules(  ){		

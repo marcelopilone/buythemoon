@@ -1,7 +1,7 @@
 
 		<div class="card">
 		  <div class="card-header center"><strong>Ranking</strong> | 
-		  	<strong>Your position is: #<?php echo $rankPlayer?></strong>
+		  	<strong>Your position is: #<?php echo $rankPlayer?> of <?php echo count($allPlayers)?> Players</strong>
 		  </div>
 		  <div class="card-body">
 		  		<table class="table table-sm center table-striped table-dark">
