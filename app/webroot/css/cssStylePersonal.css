@@ -19,6 +19,9 @@ input{
 .center{
     text-align: center !important;
 }
+.colorText{
+    color: white !important;
+}
 .gradient-bg {
     position: relative;
     display: block;

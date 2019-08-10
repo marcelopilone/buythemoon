@@ -79,14 +79,15 @@
 				'value' => $player['Player']['id']
 			));
 			echo $this->Form->hidden('sell',array(
-				'value' => true
+				'value' => true,
 			));
 			$disabledSell = false;
 			if( $player['Player']['amount_btc'] <= 0 ){
 				$disabledSell = true;
 			}
 			$options = array('label' => 'Sell Bitcoin', 
-				'class' => 'btn btn-danger btn-block buttonSell',
+				'class' => 'btn btn-danger btn-block buttonSell border border-white',
+				'style' => 'color:white !important; font-weight: bold;',
 				'div' => false,
 				'disabled' => $disabledSell,
 			);
@@ -112,7 +113,8 @@
 			}
 
 			$options = array('label' => 'Buy Bitcoin', 
-				'class' => 'btn btn-success btn-block buttonBuy',
+				'class' => 'btn btn-success btn-block buttonBuy border border-white',
+				'style' => 'color:white !important; font-weight: bold; ',
 				'disabled' => $disabledBuy,
 				'div' => false);
 

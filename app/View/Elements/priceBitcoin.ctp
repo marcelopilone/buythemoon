@@ -1,4 +1,4 @@
-<div class="card center">
+<div class="card center border border-primary">
 			<?php 
 				$Coin = ClassRegistry::init('Coin');
 				$price = $Coin->find('first',array(
