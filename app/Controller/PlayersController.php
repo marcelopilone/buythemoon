@@ -114,6 +114,20 @@ class PlayersController extends AppController {
 	}
 
 	public function start_game( ){
+		
+		$playerExist = $this->Player->find('first',array(
+			'conditions' => array(
+				'Player.ip_client' => $_SERVER['REMOTE_ADDR']
+			)
+		));
+
+		if( !empty( $playerExist ) ){
+			return $this->redirect(array( 
+                      "action" => "playing",
+                      $playerExist['Player']['id']));
+                
+		}
+
 		if ($this->request->is('post')) {
 			$startPlay = array(
 				'Player' => array(
@@ -182,7 +196,10 @@ class PlayersController extends AppController {
 			)
 		));
 
-			
+		if( $player['Player']['ip_client'] != $_SERVER['REMOTE_ADDR'] ){
+			echo "<div class='alert alert-danger'>You mustn’t be here.</div>";
+			die;
+		}	
 
 		$this->set(compact('player','ranking','rankPlayer'));
 
