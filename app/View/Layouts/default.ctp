@@ -52,7 +52,7 @@ $cakeDescription = '- Trading Cryptocurrency';
   </script>
 
 </head>
-<body class="bg-dark">
+<body style="background-color: black;">
   <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
