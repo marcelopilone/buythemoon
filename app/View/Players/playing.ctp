@@ -1,12 +1,45 @@
 <script>
 	$(document).ready(function(){
 		setInterval(function(){
-			$("#loadprice").load('/buythemoon/players/price_bitcoin')
+			$("#loadprice").load('/buythemoon/players/price_bitcoin/'+$('.idUsuario').text())
 		}, 2000);
 		setInterval(function(){
 			$("#loadranking").load('/buythemoon/players/ranking/'+$('.idUsuario').text())
 		}, 2000);
+		$('#buyBitcoin').submit(function(e) {
+	        e.preventDefault();
+	        buyBitcoinNow();
+    	}); 
+    	$('#sellBitcoin').submit(function(e) {
+	        e.preventDefault();
+	        sellBitcoinNow();
+    	}); 
+			
 	});
+	function buyBitcoinNow(){
+		$.ajax({
+		    url: '/buythemoon/players/buyBitcoin/',
+		    type:'POST',
+			data: $('#buyBitcoin').serialize(),
+		    success: function (data) {
+		        $('#refresh').html(data);
+		    }
+		});
+		$(".buttonBuy").attr("disabled", true);
+		$(".buttonSell").attr("disabled", false);
+	}
+	function sellBitcoinNow(){
+		$.ajax({
+		    url: '/buythemoon/players/sellBitcoin/',
+		    type:'POST',
+			data: $('#sellBitcoin').serialize(),
+		    success: function (data) {
+		        $('#refresh').html(data);
+		    }
+		});
+		$(".buttonBuy").attr("disabled", false);
+		$(".buttonSell").attr("disabled", true);
+	}
 </script>
 <br/>
 <div class="idUsuario" style="display: none;"><?php echo $player['Player']['id']?></div>
@@ -33,7 +66,16 @@
 			echo $this->Form->hidden('sell',array(
 				'value' => true
 			));
-			$options = array('label' => 'Sell', 'class' => 'btn btn-danger btn-block', 'div' => false);
+			$disabledSell = false;
+			if( $player['Player']['amount_btc'] <= 0 ){
+				$disabledSell = true;
+			}
+			$options = array('label' => 'Sell Bitcoin', 
+				'class' => 'btn btn-danger btn-block buttonSell',
+				'div' => false,
+				'disabled' => $disabledSell,
+			);
+
 			echo $this->Form->end($options);
 		?>
 	</div>
@@ -46,16 +88,26 @@
 				'value' => $player['Player']['id']
 			));
 			echo $this->Form->hidden('buy',array(
-				'value' => true
+				'value' => true,
 			));
-			$options = array('label' => 'Buy', 'class' => 'btn btn-success btn-block', 'div' => false);
+
+			$disabledBuy = false;
+			if( $player['Player']['amount_usd'] <= 0 ){
+				$disabledBuy = true;
+			}
+
+			$options = array('label' => 'Buy Bitcoin', 
+				'class' => 'btn btn-success btn-block buttonBuy',
+				'disabled' => $disabledBuy,
+				'div' => false);
+
 			echo $this->Form->end($options);
 		?>
 	</div>
 </div>
 <div class="row">
 	<div class="col-md-12">
-		<div id="refreshSell"></div>
+		<div id="refresh"></div>
 	</div>
 </div>
 <br/>
@@ -65,36 +117,3 @@
 	</div>
 </div>
 </div>
-<?php 
-$dataSell = $this->Js->get('#sellBitcoin')->serializeForm(array('isForm' => true, 'inline' => true));
-$this->Js->get('#sellBitcoin')->event(
-   'submit',
-   $this->Js->request(
-    array('action' => 'sellBitcoin', 'controller' => 'players',$player['Player']['id']),
-    array(
-        'update' => '#refreshSell',
-        'data' => $dataSell,
-        'async' => true,    
-        'dataExpression'=>true,
-        'method' => 'POST'
-    )
-  )
-);
-
-$dataBuy = $this->Js->get('#buyBitcoin')->serializeForm(array('isForm' => true, 'inline' => true));
-$this->Js->get('#buyBitcoin')->event(
-   'submit',
-   $this->Js->request(
-    array('action' => 'buyBitcoin', 'controller' => 'players',$player['Player']['id']),
-    array(
-        'update' => '#refreshBuy',
-        'data' => $dataBuy,
-        'async' => true,    
-        'dataExpression'=>true,
-        'method' => 'POST'
-    )
-  )
-);
-echo $this->Js->writeBuffer();
-?>
-

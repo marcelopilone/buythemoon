@@ -1,2 +1,4 @@
 <?php
-echo $this->element('priceBitcoin');
+echo $this->element('priceBitcoin',array(
+	'player' => $player
+));

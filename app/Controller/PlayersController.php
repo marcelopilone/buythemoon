@@ -133,8 +133,14 @@ class PlayersController extends AppController {
 
 	}
 
-	public function price_bitcoin() {
+	public function price_bitcoin( $idUser ) {
 		$this->layout = false;
+		$player = $this->Player->find('first',array(
+			'conditions' => array(
+				'Player.id' => $idUser
+			)
+		));
+		$this->set(compact('player'));
 	}
 
 	public function ranking( $idUser ){
@@ -183,12 +189,12 @@ class PlayersController extends AppController {
 
 	}
 
-	public function sellBitcoin( $idUser ) {
+	public function sellBitcoin(  ) {
 		if ($this->request->is('ajax')) {
 			$player = $this->Player->find('first',array(
 				'recursive' => -1,
 				'conditions' => array(
-					'Player.id' => $idUser
+					'Player.id' => $this->request->data['Player']['id']
 				)
 			));
 
@@ -201,7 +207,7 @@ class PlayersController extends AppController {
 			//sell..
 			$updateAmountUsd = array(
 				'Player' => array(
-					'id' => $idUser,
+					'id' => $this->request->data['Player']['id'],
 					'amount_btc' => 0,
 					'amount_usd' => $player['Player']['amount_btc'] * $price['Coin']['amount_usd'],
 				)
@@ -218,12 +224,12 @@ class PlayersController extends AppController {
 	public function jaja(){
 	}
 
-	public function buyBitcoin( $idUser ){
+	public function buyBitcoin( ){
 		if ($this->request->is('ajax')) {
 			$player = $this->Player->find('first',array(
 				'recursive' => -1,
 				'conditions' => array(
-					'Player.id' => $idUser
+					'Player.id' => $this->request->data['Player']['id']
 				)
 			));
 
@@ -236,13 +242,16 @@ class PlayersController extends AppController {
 			//buy..
 			$updateAmountBtc = array(
 				'Player' => array(
-					'id' => $idUser,
+					'id' =>  $this->request->data['Player']['id'],
 					'amount_btc' => $player['Player']['amount_usd'] / $price['Coin']['amount_usd'],
 					'amount_usd' => 0,
 				)
 			);
 			$this->Player->clear();
-			$this->Player->save( $updateAmountBtc );
+			if(  $this->Player->save( $updateAmountBtc  ) ){
+				echo "<br/><div class='alert alert-success center'><strong>The buy was successful</strong></div>";
+			}
+			$this->render('jaja','ajax');
 		}
 	}
 

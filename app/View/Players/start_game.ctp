@@ -38,13 +38,13 @@
 				</div>
 				</div>
 		</div>
-		<div class="row">
-			<div class="col-md-2 col-xs-2">
+		<!--<div class="row center">
+			<div class="col-md-12 col-12">-->
 				<?php 
-						echo $this->Html->image("bitcoin.png", array(
-                          'alt'   => "bitcoin",
-                          'class' => 'img-responsive' 
-                    	)); 
+						//echo $this->Html->image("toro.png", array(
+                          //'alt'   => "bitcoin",
+                          //'class' => 'img-responsive' 
+                    	//)); 
 					?>
-			</div>
+		<!--	</div>-->
 	</div>
