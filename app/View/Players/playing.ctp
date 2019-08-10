@@ -27,6 +27,9 @@
 		});
 		$(".buttonBuy").attr("disabled", true);
 		$(".buttonSell").attr("disabled", false);
+    	setTimeout(function() {
+    		$('.messageBuy').fadeOut('fast');
+		}, 2000); 
 	}
 	function sellBitcoinNow(){
 		$.ajax({
@@ -39,6 +42,9 @@
 		});
 		$(".buttonBuy").attr("disabled", false);
 		$(".buttonSell").attr("disabled", true);
+		setTimeout(function() {
+    		$('.messageSell').fadeOut('fast');
+		}, 2000); 
 	}
 </script>
 <br/>
@@ -54,6 +60,15 @@
 		<div id="loadprice"> </div>
 	</div>
 </div><br/>
+<?php 
+	if( $player['Player']['amount_usd'] <= 0 && $player['Player']['amount_btc'] <= 0){
+		?>
+		<div class="alert alert-danger center">
+			<strong>You can't buy and sell anymore because your balance of usd and btc is less than 0</strong>
+		</div>
+		<?php
+	}
+?>
 <div class="row">
 	<div class="col-md-6">
 		<?php 

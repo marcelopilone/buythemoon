@@ -15,7 +15,7 @@
 			  			?></span></strong>
 		  			</div>
 		  			<div class="col-md-4 col-4">
-		  				Balance <strong>USD:</strong> <strong><span class="text-primary"><?php echo 
+		  				Balance <strong>Tether:</strong> <strong><span class="text-primary"><?php echo 
 			  			$this->Number->currency($player['Player']['amount_usd']);
 			  			?></span></strong>
 		  			</div>

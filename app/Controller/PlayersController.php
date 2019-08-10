@@ -214,7 +214,7 @@ class PlayersController extends AppController {
 			);
 			$this->Player->clear();
 			if(  $this->Player->save( $updateAmountUsd  ) ){
-				echo "<br/><div class='alert alert-success center'><strong>The sale was successful</strong></div>";
+				echo "<br/><div class='alert alert-success center messageSell'><strong>The sale was successful</strong></div>";
 			}
 			$this->render('jaja','ajax');
 			
@@ -240,16 +240,20 @@ class PlayersController extends AppController {
 				)
 			));
 			//buy..
-			$updateAmountBtc = array(
-				'Player' => array(
-					'id' =>  $this->request->data['Player']['id'],
-					'amount_btc' => $player['Player']['amount_usd'] / $price['Coin']['amount_usd'],
-					'amount_usd' => 0,
-				)
-			);
-			$this->Player->clear();
-			if(  $this->Player->save( $updateAmountBtc  ) ){
-				echo "<br/><div class='alert alert-success center'><strong>The buy was successful</strong></div>";
+			if( $player['Player']['amount_usd'] <= 0 ){
+				echo "<br/><div class='alert alert-danger center'><strong>You cant buy anymore, your amount is less than 0.00</strong></div>";
+			}else{
+				$updateAmountBtc = array(
+					'Player' => array(
+						'id' =>  $this->request->data['Player']['id'],
+						'amount_btc' => $player['Player']['amount_usd'] / $price['Coin']['amount_usd'],
+						'amount_usd' => 0,
+					)
+				);
+				$this->Player->clear();
+				if(  $this->Player->save( $updateAmountBtc  ) ){
+					echo "<br/><div class='alert alert-success center messageBuy'><strong>The buy was successful</strong></div>";
+				}				
 			}
 			$this->render('jaja','ajax');
 		}
