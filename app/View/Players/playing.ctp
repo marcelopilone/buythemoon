@@ -54,6 +54,22 @@
 <h2 class="text-primary center">Welcome <strong><?php echo $player['Player']['name']?></strong>, trade the best you can</h2>
 </div>
 </div>
+<div class="row">
+	<div class="col-md-12">
+		<?php 
+			echo $this->Html->link(
+		    'Finish game',
+		    array(
+		        'action' => 'finish_game',
+		        $player['Player']['id']
+		    ),array(
+		    	'class' => 'btn btn-danger btn-sm float-right',
+		    	'confirm' => 'Are you sure?'
+		    )
+		);
+		?>
+	</div>
+</div>
 <br/>
 <div class="row">
 	<div class="col-md-12 col-xs-12">
