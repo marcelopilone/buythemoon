@@ -10,7 +10,7 @@
 		  <div class="card-body">
 		  		<div class="row">
 		  			<div class="col-md-4 col-4">
-		  				Price of Bitcoin in <strong>Binance:</strong> <strong><span class="text-primary"><?php echo 
+		  				Price of Bitcoin in <strong><u><a href="https://www.binance.com/en/trade/BTC_USDT" target="_blank">Binance</a></u>:</strong> <strong><span class="text-primary"><?php echo 
 			  			$this->Number->currency($price['Coin']['amount_usd']);
 			  			?></span></strong>
 		  			</div>

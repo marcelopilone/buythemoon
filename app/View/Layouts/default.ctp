@@ -26,6 +26,7 @@ $cakeDescription = '- Trading Cryptocurrency Game';
 		//echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
+    //
 	?>
   <!--Etiquetas facebook, falta la imagen-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
