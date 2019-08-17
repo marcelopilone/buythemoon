@@ -1,10 +1,17 @@
+<?php 
+	$path = stripslashes( "/buythemoon" );
+	$debugVar = Configure::read('debug');
+	if( $debugVar <= 0 ){
+		$path = "";
+	}
+?>
 <script>
 	$(document).ready(function(){
 		setInterval(function(){
-			$("#loadprice").load('/players/price_bitcoin/'+$('.idUsuario').text())
+			$("#loadprice").load('<?php echo $path?>/players/price_bitcoin/'+$('.idUsuario').text())
 		}, 2000);
 		setInterval(function(){
-			$("#loadranking").load('/players/ranking/'+$('.idUsuario').text())
+			$("#loadranking").load('<?php echo $path?>/players/ranking/'+$('.idUsuario').text())
 		}, 2000);
 		$('#buyBitcoin').submit(function(e) {
 	        e.preventDefault();
@@ -18,7 +25,7 @@
 	});
 	function buyBitcoinNow(){
 		$.ajax({
-		    url: '/buythemoon/players/buyBitcoin/',
+		    url: '<?php echo $path?>/players/buyBitcoin/',
 		    type:'POST',
 			data: $('#buyBitcoin').serialize(),
 		    success: function (data) {
@@ -33,7 +40,7 @@
 	}
 	function sellBitcoinNow(){
 		$.ajax({
-		    url: '/players/sellBitcoin/',
+		    url: '<?php echo $path?>/players/sellBitcoin/',
 		    type:'POST',
 			data: $('#sellBitcoin').serialize(),
 		    success: function (data) {
