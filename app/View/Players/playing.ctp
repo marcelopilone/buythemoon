@@ -1,10 +1,10 @@
 <script>
 	$(document).ready(function(){
 		setInterval(function(){
-			$("#loadprice").load('/buythemoon/players/price_bitcoin/'+$('.idUsuario').text())
+			$("#loadprice").load('/players/price_bitcoin/'+$('.idUsuario').text())
 		}, 2000);
 		setInterval(function(){
-			$("#loadranking").load('/buythemoon/players/ranking/'+$('.idUsuario').text())
+			$("#loadranking").load('/players/ranking/'+$('.idUsuario').text())
 		}, 2000);
 		$('#buyBitcoin').submit(function(e) {
 	        e.preventDefault();
@@ -33,7 +33,7 @@
 	}
 	function sellBitcoinNow(){
 		$.ajax({
-		    url: '/buythemoon/players/sellBitcoin/',
+		    url: '/players/sellBitcoin/',
 		    type:'POST',
 			data: $('#sellBitcoin').serialize(),
 		    success: function (data) {
