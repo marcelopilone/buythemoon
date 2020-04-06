@@ -53,7 +53,7 @@ class Currency extends AppModel {
        $resultadoSuperFinal = array();
        for ($i = 1; $i <= $veces; $i++) {
             if( $i > 1 ){
-                $cantInicial = $cantFinal;
+                $cantInicial = $cantFinal+10000;
             }
 
             $cantidadParcial = $cantInicial * $porcentaje / 100;
