@@ -1,11 +1,11 @@
 <div class="cartas form">
-<?php echo $this->Form->create('Carta'); ?>
+<?php echo $this->Form->create('Carta',array('class'=>'form-control')); ?>
 	<fieldset>
 		<legend><?php echo __('Edit Carta'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
-		echo $this->Form->input('path_img');
-		echo $this->Form->input('valor');
+		echo $this->Form->input('path_img',array('class'=>'form-control'));
+		echo $this->Form->input('valor',array('class'=>'form-control'));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

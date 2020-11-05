@@ -17,6 +17,17 @@ class CartasController extends AppController {
  */
 	public $components = array('Paginator', 'Session', 'Flash');
 
+	public function beforeFilter(){
+		parent::beforeFilter();
+        // Allow users to register and logout.
+        $this->Auth->allow('todas_las_cartas');
+		$this->response->header([
+            'Access-Control-Allow-Origin' => '*',
+            'Access-Control-Allow-Headers' => 'Origin, X-Requested-With, Content-Type, Accept',
+            'Access-Control-Allow-Methods' => 'GET, POST, PUT, DELETE',
+        ]);
+	}
+
 /**
  * index method
  *
@@ -25,6 +36,13 @@ class CartasController extends AppController {
 	public function index() {
 		$this->Carta->recursive = 0;
 		$this->set('cartas', $this->Paginator->paginate());
+	}
+
+	public function todas_las_cartas() {
+		$this->layout = false;
+		$cartas = $this->Carta->find('all');
+		$this->set('cartas', $cartas);
+		$this->set('_serialize', array('cartas'));
 	}
 
 /**

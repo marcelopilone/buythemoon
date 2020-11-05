@@ -26,7 +26,7 @@
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
 	//Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
-      Router::connect('/', array('controller' => 'players', 'action' => 'start_game', 'home'));
+      Router::parseExtensions('json', 'xls','pdf', 'txt', 'csv', 'xml');
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */
