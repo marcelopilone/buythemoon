@@ -52,7 +52,7 @@ $cakeDescription = '- Trading Cryptocurrency Game';
   gtag('config', 'UA-145847743-1');
 </script>
 </head>
-<body style="background-color: black;">
+<body>
   <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
