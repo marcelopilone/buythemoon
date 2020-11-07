@@ -40,7 +40,18 @@ class CartasController extends AppController {
 
 	public function todas_las_cartas() {
 		$this->layout = false;
-		$cartas = $this->Carta->find('all');
+		$cartas = $this->Carta->find('all',array(
+			'limit' => 12,
+			'order' => 'rand()',
+		));
+		$valores = array();
+		foreach($cartas as $c){
+			$valores[] = $c['Carta']['valor'];
+		}
+		foreach( $cartas as &$c ){
+			$c['Carta']['minimo'] = min($valores);
+			$c['Carta']['maximo'] = max($valores);
+		}
 		$this->set('cartas', $cartas);
 		$this->set('_serialize', array('cartas'));
 	}
